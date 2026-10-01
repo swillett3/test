@@ -152,8 +152,15 @@ export async function createBackend(opts = {}) {
         return keys;
       });
     },
+    /** Replaces a released copy. Returns false (and writes nothing) if it was retracted meanwhile. */
     async updateFeedEntry(key, entry) {
-      return fs.updateDoc(ref.feed, new fs.FieldPath("items", key), JSON.stringify(entry));
+      return fs.runTransaction(db, async (tx) => {
+        const snap = await tx.get(ref.feed);
+        const items = (snap.exists() && snap.data().items) || {};
+        if (!(key in items)) return false;
+        tx.update(ref.feed, new fs.FieldPath("items", key), JSON.stringify(entry));
+        return true;
+      });
     },
     async retract(key) {
       return fs.updateDoc(ref.feed, new fs.FieldPath("items", key), fs.deleteField());

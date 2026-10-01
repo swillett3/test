@@ -1,4 +1,4 @@
-import { loadBackend, carryParams } from "./store.js";
+import { loadBackend, carryParams, resilientWatch } from "./store.js";
 import { ADMIN_EMAILS } from "./config.js";
 import { h, add, clear, toast, dialog, confirmDialog, download, chime, paragraphs } from "./ui.js";
 import {
@@ -31,7 +31,17 @@ const S = {
   lastResponseIds: null,
   unsubs: [],
   built: false,
+  lost: new Set(),        // listeners that failed and are retrying
+  feedFromCache: false,   // Firestore says the feed is coming from the local cache (no server connection)
+  lastAutoFailToast: 0,
 };
+
+/** Why the console can't trust its data right now, or null if connected. */
+function connectionProblem() {
+  if (!navigator.onLine) return "This computer is offline.";
+  if (S.lost.size || S.feedFromCache) return "Lost connection to the database.";
+  return null;
+}
 
 const $ = (id) => document.getElementById(id);
 const cfg = () => ({ ...DEFAULT_CONFIG, ...(S.config || {}) });
@@ -65,6 +75,9 @@ async function boot() {
     if (was !== u.uid) startWatching();
   });
   setInterval(tick, 1000);
+  const onNet = () => S.built && renderBar();
+  window.addEventListener("online", onNet);
+  window.addEventListener("offline", onNet);
 }
 
 function bootMessage(msg) {
@@ -126,12 +139,31 @@ function startWatching() {
       renderDenied();
     }
   };
+  S.lost.clear();
+  S.feedFromCache = false;
+  // Each listener re-subscribes by itself after a network/server error; the bar shows a banner meanwhile.
+  const watch = (name, start, cb) =>
+    resilientWatch(
+      start,
+      (...a) => {
+        S.lost.delete(name);
+        cb(...a);
+      },
+      {
+        onDenied: denied,
+        onLost: (e) => {
+          console.error(name, e);
+          S.lost.add(name);
+          if (S.built) renderBar();
+        },
+      },
+    );
   S.unsubs.push(
-    S.backend.watchConfig((c) => { S.config = c || {}; renderAll(); }, denied),
-    S.backend.watchFeed((f) => { S.feed = f || {}; renderAll(); }, denied),
-    S.backend.watchScript((s) => { S.script = s; renderAll(); }, denied),
-    S.backend.watchControl((c) => { S.control = c || {}; renderAll(); }, denied),
-    S.backend.watchResponses((r) => onResponses(r), denied),
+    watch("config", S.backend.watchConfig, (c) => { S.config = c || {}; renderAll(); }),
+    watch("feed", S.backend.watchFeed, (f, meta) => { S.feed = f || {}; S.feedFromCache = !!(meta && meta.fromCache); renderAll(); }),
+    watch("script", S.backend.watchScript, (s) => { S.script = s; renderAll(); }),
+    watch("control", S.backend.watchControl, (c) => { S.control = c || {}; renderAll(); }),
+    watch("responses", S.backend.watchResponses, (r) => onResponses(r)),
   );
 }
 
@@ -175,6 +207,7 @@ function tick() {
 
 async function runScheduler() {
   if (!S.built || S.denied || S.releasing || S.overduePrompt) return;
+  if (connectionProblem()) return; // data may be stale; resume (and prompt about any backlog) once reconnected
   const c = cfg();
   if (!S.control.autoRelease || c.simStart == null || !S.script) return;
   const now = Date.now();
@@ -206,16 +239,27 @@ async function promptOverdue(due, overdue) {
         { label: "Shift the schedule", value: "shift", primary: true },
       ],
     });
-    if (choice === "release") await releaseItems(due, { auto: true });
-    else if (choice === "shift") {
-      const newStart = shiftedStartFor(first, c, Date.now());
-      await S.backend.saveConfig({ simStart: newStart });
-      toast(`Schedule shifted by ${fmtDuration(Number(c.simStart) - newStart).replace("-", "")}. The next message goes out now.`);
-    } else if (choice === "skip") {
-      for (const it of overdue) await S.backend.saveScriptItem({ ...it, skipped: true });
-      toast(`Skipped ${overdue.length} messages. You can still release any of them by hand.`);
-    } else if (choice === "off" || choice == null) {
+    if (choice === "off" || choice == null) {
       await S.backend.saveControl({ autoRelease: false });
+      return;
+    }
+    // The other console may have answered the same prompt while this one was open. Act only on what is still overdue.
+    const c2 = cfg();
+    const now = Date.now();
+    const due2 = c2.simStart == null ? [] : dueItems(items(), S.feed, c2, now);
+    const overdue2 = due2.filter((it) => scheduledAt(it, c2) < now - OVERDUE_GRACE_MS);
+    if (c2.simStart !== c.simStart || !S.control.autoRelease || !overdue2.length) {
+      toast("Nothing done: the schedule or auto-release changed while this was open (probably from another console).", { ms: 9000 });
+      return;
+    }
+    if (choice === "release") await releaseItems(due2, { auto: true });
+    else if (choice === "shift") {
+      const newStart = shiftedStartFor(overdue2[0], c2, now);
+      await S.backend.saveConfig({ simStart: newStart });
+      toast(`Schedule shifted by ${fmtDuration(Number(c2.simStart) - newStart).replace("-", "")}. The next message goes out now.`);
+    } else if (choice === "skip") {
+      for (const it of overdue2) await S.backend.saveScriptItem({ ...it, skipped: true });
+      toast(`Skipped ${overdue2.length} messages. You can still release any of them by hand.`);
     }
   } catch (e) {
     console.error(e);
@@ -242,7 +286,11 @@ async function releaseItems(list, opts = {}) {
     return keys;
   } catch (e) {
     console.error(e);
-    toast("Release failed: " + (e.message || e) + ". Try again.", { tone: "error", ms: 9000 });
+    // Auto-release retries every second; don't stack a toast each time.
+    if (!opts.auto || Date.now() - S.lastAutoFailToast > 60000) {
+      if (opts.auto) S.lastAutoFailToast = Date.now();
+      toast((opts.auto ? "Auto-release failed: " : "Release failed: ") + (e.message || e) + (opts.auto ? ". It keeps retrying." : ". Try again."), { tone: "error", ms: 9000 });
+    }
     return [];
   } finally {
     S.releasing = false;
@@ -271,6 +319,7 @@ function build() {
         h("div", { class: "cbar__auto", id: "c-auto" }),
         h("div", { class: "cbar__user" }, h("span", { id: "c-user" }), h("button", { type: "button", class: "btn btn--ghost btn--sm", onclick: () => S.backend.signOut() }, "Sign out")),
       ),
+      h("div", { class: "conn-banner", id: "c-conn", role: "alert", hidden: true }),
       h("div", { class: "nextup", id: "c-next" }),
       h(
         "nav",
@@ -322,6 +371,10 @@ function renderBar() {
       h("button", { type: "button", class: "btn btn--ghost btn--sm", onclick: editStart }, "Change…"),
     );
   }
+  const problem = connectionProblem();
+  const banner = $("c-conn");
+  banner.hidden = !problem;
+  banner.textContent = problem ? `${problem} Reconnecting by itself — keep this tab open. Auto-release is paused until the connection is back; what you see may be out of date.` : "";
   const a = clear($("c-auto"));
   const on = !!S.control.autoRelease;
   add(a, 
@@ -614,9 +667,20 @@ async function moreMenu(it, anchor) {
   if (v === "skip" || v === "unskip") return S.backend.saveScriptItem({ ...it, skipped: v === "skip" });
   if (v === "dup") return composeFrom(it);
   if (v === "retract") {
-    if (await confirmDialog("Retract this message?", "It disappears from every student's screen right away. You can release it again later.", "Retract", true)) {
-      for (const r of released) await S.backend.retract(r.key);
-      toast("Retracted.");
+    const scheduled = !it.manualOnly && !it.skipped && it.offsetMin != null;
+    const ok = await confirmDialog(
+      "Retract this message?",
+      "It disappears from every student's screen right away." +
+        (scheduled ? " It is also marked Skipped so auto-release doesn't send it again; use Release or Un-skip to bring it back." : " You can release it again later."),
+      "Retract",
+      true,
+    );
+    if (ok) {
+      // Skip first: otherwise auto-release (in this or another console) sees it as due and re-sends it within a second.
+      const cur = items()[it.id];
+      if (scheduled && cur) await S.backend.saveScriptItem({ ...cur, skipped: true });
+      for (const r of releasesOf(it.id, S.feed)) await S.backend.retract(r.key);
+      toast(scheduled ? "Retracted and skipped." : "Retracted.");
     }
   }
   if (v === "delete") {
@@ -704,14 +768,20 @@ async function editItem(it) {
   } catch (e) {
     return toast(e.message, { tone: "error" });
   }
+  const cur = items()[it.id];
+  if (cur) next = { ...next, skipped: cur.skipped }; // the form doesn't edit this; keep any change made while it was open
   await S.backend.saveScriptItem(next);
-  if (released.length && alsoFeed.checked) {
-    for (const r of released) {
-      const isTargeted = String(r.key).includes("~");
-      await S.backend.updateFeedEntry(r.key, studentProjection(next, { releasedAt: r.releasedAt, audience: isTargeted ? r.audience : undefined }));
-    }
+  // Look again now: the message may have been released (e.g. by auto-release) or retracted while the form was open.
+  // Copies that went out while the form was open are always updated (there was no checkbox for them).
+  const wasOut = new Set(released.map((r) => r.key));
+  const toUpdate = releasesOf(it.id, S.feed).filter((r) => !wasOut.has(r.key) || alsoFeed.checked);
+  let updated = 0;
+  for (const r of toUpdate) {
+    const isTargeted = String(r.key).includes("~");
+    if (await S.backend.updateFeedEntry(r.key, studentProjection(next, { releasedAt: r.releasedAt, audience: isTargeted ? r.audience : undefined }))) updated++;
   }
-  toast("Saved.");
+  const lateRelease = toUpdate.some((r) => !wasOut.has(r.key));
+  toast(updated ? `Saved. Students' copy updated${lateRelease ? " (it was released while you were editing)" : ""}.` : "Saved.");
 }
 
 // ---------- item form (edit + compose) ----------

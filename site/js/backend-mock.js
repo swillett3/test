@@ -145,10 +145,10 @@ export async function createBackend() {
     async updateFeedEntry(key, entry) {
       needAdmin();
       const f = read("public/feed") || { items: {} };
-      if (!f.items[key]) throw Object.assign(new Error("No such feed entry"), { code: "not-found" });
+      if (!f.items[key]) return wait(false); // retracted meanwhile: don't bring it back
       f.items[key] = JSON.parse(JSON.stringify(entry));
       write("public/feed", f);
-      return wait();
+      return wait(true);
     },
     async retract(key) {
       needAdmin();

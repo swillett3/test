@@ -119,14 +119,17 @@ test("two facilitator consoles releasing the same items at once produce one copy
   assert.equal(Object.keys(v).length, 3);
 });
 
-test("edit and retract a feed entry whose key contains '~'", async () => {
+test("edit and retract a feed entry whose key contains '~'; editing after a retract does not resurrect it", async () => {
   const b = await adminBackend();
   await b.release([{ key: "R05~abc", entry: studentProjection(item("R05")) }, { key: "R06", entry: studentProjection(item("R06")) }]);
-  await b.updateFeedEntry("R05~abc", { ...studentProjection(item("R05")), subject: "fixed" });
+  assert.equal(await b.updateFeedEntry("R05~abc", { ...studentProjection(item("R05")), subject: "fixed" }), true);
   let { v } = await next(b.watchFeed, (f) => f["R05~abc"] && f["R05~abc"].subject === "fixed");
   await b.retract("R05~abc");
   ({ v } = await next(b.watchFeed, (f) => !f["R05~abc"]));
   assert.deepEqual(Object.keys(v), ["R06"]);
+  assert.equal(await b.updateFeedEntry("R05~abc", studentProjection(item("R05"))), false, "editing a retracted copy reports it");
+  ({ v } = await next(b.watchFeed));
+  assert.deepEqual(Object.keys(v), ["R06"], "and does not bring it back");
   await b.clearFeed();
   await next(b.watchFeed, (f) => Object.keys(f).length === 0);
 });

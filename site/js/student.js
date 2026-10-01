@@ -1,4 +1,4 @@
-import { loadBackend } from "./store.js";
+import { loadBackend, resilientWatch } from "./store.js";
 import { h, add, clear, toast, chime, confirmDialog, qs } from "./ui.js";
 import { isForViewer, feedList, fmtClock, buildResponse, RESPONSE_KINDS, DEFAULT_ROLES, LIMITS } from "./model.js";
 import { inboxRow, messageView, socialPost, kindLabel } from "./feedview.js";
@@ -14,6 +14,7 @@ const S = {
   feed: {},
   feedLoaded: false,
   online: true,
+  configLost: false,
   identity: null,
   tab: "inbox",
   selected: null,
@@ -23,6 +24,8 @@ const S = {
   sent: [],
   sound: localStorage.getItem(SOUND_KEY) !== "off",
   built: false,
+  join: { team: null, role: null, name: "" }, // picks on the join screen, kept across re-renders
+  joinSig: null, // what the join screen was last drawn from; null when it isn't showing
 };
 
 const $ = (id) => document.getElementById(id);
@@ -68,28 +71,35 @@ async function boot() {
     if (S.built) renderRespondStatus();
   });
 
-  S.backend.watchConfig(
+  // Both listeners re-subscribe by themselves after an error (a Firestore listener stops for good otherwise).
+  const lost = (what) => (e) => {
+    console.error(what, e);
+    if (what === "config") S.configLost = true;
+    else S.online = false;
+    if (!S.config) bootMessage("Couldn't reach the simulation. Trying again…");
+    else if (S.built) renderHeader();
+  };
+  resilientWatch(
+    S.backend.watchConfig,
     (cfg) => {
+      S.configLost = false;
       S.config = cfg || {};
       resolveIdentity();
       render();
     },
-    (e) => {
-      console.error(e);
-      bootMessage("Couldn't reach the simulation. Reload the page to try again.");
-    },
+    { onLost: lost("config") },
   );
-  S.backend.watchFeed(
+  resilientWatch(
+    S.backend.watchFeed,
     (feed, meta) => {
       S.online = !(meta && meta.fromCache);
       onFeed(feed || {});
     },
-    (e) => {
-      console.error(e);
-      S.online = false;
-      renderHeader();
-    },
+    { onLost: lost("feed") },
   );
+  const onNet = () => S.built && renderHeader();
+  window.addEventListener("online", onNet);
+  window.addEventListener("offline", onNet);
   setInterval(tickClock, 1000);
 }
 
@@ -99,6 +109,7 @@ function bootMessage(msg) {
   else {
     clear($("app")).appendChild(h("div", { class: "boot" }, h("div", { class: "boot__logo" }, "★"), h("p", { class: "boot__msg" }, msg)));
     S.built = false;
+    S.joinSig = null;
   }
 }
 
@@ -203,15 +214,21 @@ function render() {
 
 function renderJoin() {
   S.built = false;
-  const app = clear($("app"));
   const t = teams();
-  let pickedTeam = null, pickedRole = null;
-  const nameInput = h("input", { type: "text", id: "join-name", maxlength: "80", placeholder: "Optional — helps facilitators know who replied", autocomplete: "name" });
+  // Redraw only when something on this screen changed, so a release or other update doesn't wipe a half-filled form.
+  const sig = JSON.stringify([t, roles().map((r) => [r.code, r.character, r.title]), S.config && S.config.title, S.config && S.config.company]);
+  if (S.joinSig === sig && $("app").querySelector(".join")) return;
+  S.joinSig = sig;
+  const app = clear($("app"));
+  const J = S.join;
+  if (J.team && !t.some((tm) => String(tm.id) === J.team)) J.team = null;
+  if (J.role && !roles().some((r) => r.code === J.role)) J.role = null;
+  const nameInput = h("input", { type: "text", id: "join-name", maxlength: "80", placeholder: "Optional — helps facilitators know who replied", autocomplete: "name", value: J.name, oninput: (e) => (J.name = e.target.value) });
   const go = h("button", { type: "submit", class: "btn btn--primary btn--lg", id: "join-go", disabled: true }, "Enter the workspace");
   const update = () => {
-    go.disabled = !(pickedTeam && pickedRole);
-    app.querySelectorAll("[data-team]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.team === pickedTeam)));
-    app.querySelectorAll("[data-role]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.role === pickedRole)));
+    go.disabled = !(J.team && J.role);
+    app.querySelectorAll("[data-team]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.team === J.team)));
+    app.querySelectorAll("[data-role]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.role === J.role)));
   };
   app.appendChild(
     h(
@@ -227,8 +244,9 @@ function renderJoin() {
               class: "join__form",
               onsubmit: (e) => {
                 e.preventDefault();
-                if (!pickedTeam || !pickedRole) return;
-                setIdentity({ team: pickedTeam, role: pickedRole, name: nameInput.value.trim() });
+                if (!J.team || !J.role) return;
+                setIdentity({ team: J.team, role: J.role, name: nameInput.value.trim() });
+                S.join = { team: null, role: null, name: J.name };
                 render();
               },
             },
@@ -237,7 +255,7 @@ function renderJoin() {
               "div",
               { class: "choice-grid choice-grid--teams" },
               t.map((tm) =>
-                h("button", { type: "button", class: "choice", "data-team": String(tm.id), "aria-pressed": "false", onclick: () => { pickedTeam = String(tm.id); update(); } }, tm.name || "Team " + tm.id),
+                h("button", { type: "button", class: "choice", "data-team": String(tm.id), "aria-pressed": "false", onclick: () => { J.team = String(tm.id); update(); } }, tm.name || "Team " + tm.id),
               ),
             ),
             h("h2", null, "2. Your role"),
@@ -247,7 +265,7 @@ function renderJoin() {
               roles().map((r) =>
                 h(
                   "button",
-                  { type: "button", class: "choice choice--role", "data-role": r.code, "aria-pressed": "false", onclick: () => { pickedRole = r.code; update(); } },
+                  { type: "button", class: "choice choice--role", "data-role": r.code, "aria-pressed": "false", onclick: () => { J.role = r.code; update(); } },
                   h("span", { class: "choice__code" }, r.code),
                   h("span", { class: "choice__name" }, r.character),
                   h("span", { class: "choice__title" }, r.title),
@@ -259,9 +277,11 @@ function renderJoin() {
           ),
     ),
   );
+  update();
 }
 
 function buildWorkspace() {
+  S.joinSig = null;
   const app = clear($("app"));
   app.appendChild(
     h(
@@ -344,8 +364,9 @@ function renderHeader() {
     h("span", { class: "who__title" }, `${r.title} · ${tm ? tm.name : "Team " + S.identity.team}`),
   );
   const st = $("status");
-  st.textContent = !S.feedLoaded ? "Connecting…" : S.online ? "Live" : "Reconnecting…";
-  st.className = "status " + (S.feedLoaded && S.online ? "status--ok" : "status--warn");
+  const live = S.online && !S.configLost && navigator.onLine;
+  st.textContent = !S.feedLoaded ? "Connecting…" : live ? "Live" : "Reconnecting…";
+  st.className = "status " + (S.feedLoaded && live ? "status--ok" : "status--warn");
   $("sound-btn").textContent = S.sound ? "🔔" : "🔕";
   $("sound-btn").setAttribute("aria-label", S.sound ? "Sound on" : "Sound off");
   tickClock();

@@ -42,8 +42,8 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 
 ## Tests
 ```
-node --test tests/model.test.mjs          # unit
-python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (51 checks)
+node --test tests/model.test.mjs tests/store.test.mjs   # unit
+python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (59 checks)
 npm install && npm run test:emulator       # Firestore + Auth emulators: rules tests (every allow/deny) + backend-firebase.js integration tests
 ```
 All pass. The emulator tests import `backend-firebase.js` in Node with the npm `firebase@10.12.2` package (same version as the CDN) through `createBackend({sdk, config, emulator})`; the site calls it with no arguments. The browser e2e has NOT been run against the emulator: the session network blocks www.gstatic.com, where the site loads the SDK. Email/Password is always enabled in the Auth emulator, so the self-check's Email/Password row fails there by design.
@@ -51,7 +51,7 @@ All pass. The emulator tests import `backend-firebase.js` in Node with the npm `
 ## Open work, in priority order
 1. ~~Apply the security review findings~~ **Done** (Google-only `isAdmin()`, generic phone line, stronger `selfCheck()`).
 2. ~~Test the real backend against the Firebase emulator~~ **Done** for rules and `backend-firebase.js` (`npm run test:emulator`). Still open: the browser e2e against the emulator, which needs www.gstatic.com allowed in the session network.
-3. **Independent code review**: done 10/1; findings reported to Sam, fixes awaiting his go-ahead. Scope was `admin.js`, `student.js` and `backend-firebase.js`, focusing on:
+3. **Independent code review**: done 10/1, and Sam approved the fixes. Retract now also skips; edits re-check released copies and never resurrect retracted ones; a stale overdue prompt does nothing; the join screen keeps its picks; the console shows a connection banner and pauses auto-release while disconnected; all listeners reconnect by themselves. Scope was `admin.js`, `student.js` and `backend-firebase.js`, focusing on:
    - races between two facilitator tabs with auto-release on
    - consistency between release, retract and edit
    - form state lost on re-render

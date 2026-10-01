@@ -195,6 +195,14 @@ export function normItem(raw) {
   };
 }
 
+export const GENERIC_CALL_TEXT = "Incoming call: a facilitator will join your team shortly.";
+
+// A phone item's body is the actors' script, so it is never shown to students; without a studentBody they get a generic line.
+function studentBodyOf(it) {
+  if (it.kind === "phone") return it.studentBody && it.studentBody.trim() ? it.studentBody : GENERIC_CALL_TEXT;
+  return it.studentBody != null ? it.studentBody : it.body;
+}
+
 /** What students receive. Facilitator-only fields never leave the admin side. */
 export function studentProjection(item, extra = {}) {
   const it = normItem(item);
@@ -205,7 +213,7 @@ export function studentProjection(item, extra = {}) {
     from: it.from,
     to: it.to,
     subject: it.subject,
-    body: it.studentBody != null ? it.studentBody : it.body,
+    body: studentBodyOf(it),
     media: it.media.filter((m) => m.url),
     audience: normAudience(extra.audience || it.audience),
     releasedAt: extra.releasedAt || Date.now(),

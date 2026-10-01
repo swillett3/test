@@ -65,6 +65,11 @@ test("student projection never leaks facilitator material", () => {
   const call = M.studentProjection(p.items.R13);
   assert.ok(!call.body.includes("Script"), "call script hidden");
   assert.ok(!call.body.includes("Note to actors"));
+  for (const sb of [null, "", "   "]) {
+    const bare = M.studentProjection({ ...p.items.R13, studentBody: sb });
+    assert.equal(bare.body, M.GENERIC_CALL_TEXT, `phone with studentBody=${JSON.stringify(sb)} never falls back to the script`);
+  }
+  assert.equal(M.studentProjection({ id: "E1", kind: "email", body: "hello" }).body, "hello");
 });
 
 test("schedule math", () => {

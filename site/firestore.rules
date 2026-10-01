@@ -8,10 +8,12 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isAdmin() {
+      // Google sign-in only, verified address, on the list. .get() avoids errors when a claim is missing
+      // (anonymous students have no email), so those requests are cleanly denied.
       return request.auth != null
-        && request.auth.token.email != null
-        && request.auth.token.email_verified == true
-        && request.auth.token.email.lower() in [
+        && request.auth.token.firebase.sign_in_provider == 'google.com'
+        && request.auth.token.get('email_verified', false) == true
+        && request.auth.token.get('email', '').lower() in [
           'sam_willett@berkeley.edu',
           'amy.chan@berkeley.edu'
         ];

@@ -51,7 +51,7 @@ All pass. The emulator tests import `backend-firebase.js` in Node with the npm `
 ## Open work, in priority order
 1. ~~Apply the security review findings~~ **Done** (Google-only `isAdmin()`, generic phone line, stronger `selfCheck()`).
 2. ~~Test the real backend against the Firebase emulator~~ **Done** for rules and `backend-firebase.js` (`npm run test:emulator`). Still open: the browser e2e against the emulator, which needs www.gstatic.com allowed in the session network.
-3. **Independent code review**: done 10/1; findings reported to Sam, fixes awaiting his go-ahead. Original focus list: of `admin.js`, `student.js` and `backend-firebase.js`. Focus on:
+3. **Independent code review**: done 10/1; findings reported to Sam, fixes awaiting his go-ahead. Scope was `admin.js`, `student.js` and `backend-firebase.js`, focusing on:
    - races between two facilitator tabs with auto-release on
    - consistency between release, retract and edit
    - form state lost on re-render

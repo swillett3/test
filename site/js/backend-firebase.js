@@ -24,15 +24,27 @@ function parseItems(map) {
   return out;
 }
 
-export async function createBackend() {
-  const [appMod, fs, au] = await Promise.all([
+/**
+ * The site calls this with no arguments. `opts` exists only for tests/backend.test.mjs, which passes the npm build of the
+ * same SDK version, a demo config and the local emulator address, so this file can be tested without the CDN.
+ */
+export async function createBackend(opts = {}) {
+  const [appMod, fs, au] = opts.sdk || (await Promise.all([
     import(`${BASE}/firebase-app.js`),
     import(`${BASE}/firebase-firestore.js`),
     import(`${BASE}/firebase-auth.js`),
-  ]);
-  const app = appMod.initializeApp(FIREBASE_CONFIG);
+  ]));
+  const CONFIG = opts.config || FIREBASE_CONFIG;
+  const connect = (d, a) => {
+    if (!opts.emulator) return;
+    const { host, firestorePort, authPort } = opts.emulator;
+    fs.connectFirestoreEmulator(d, host, firestorePort);
+    au.connectAuthEmulator(a, `http://${host}:${authPort}`, { disableWarnings: true });
+  };
+  const app = appMod.initializeApp(CONFIG, opts.appName);
   const db = fs.getFirestore(app);
   const auth = au.getAuth(app);
+  connect(db, auth);
 
   const ref = {
     config: fs.doc(db, "public", "config"),
@@ -177,9 +189,10 @@ export async function createBackend() {
           new Promise((_, rej) => setTimeout(() => rej(Object.assign(new Error("timed out after 10 s"), { code: "timeout" })), PROBE_TIMEOUT_MS)),
         ]);
       const name = "selfcheck-" + Date.now();
-      const app2 = appMod.initializeApp(FIREBASE_CONFIG, name);
+      const app2 = appMod.initializeApp(CONFIG, name);
       const db2 = fs.getFirestore(app2);
       const auth2 = au.getAuth(app2);
+      connect(db2, auth2);
       const results = [];
       const fail = (label, e) => results.push({ label, expect: "ok", got: "error: " + ((e && (e.code || e.message)) || e), ok: false });
       const probe = async (label, expect, fn) => {

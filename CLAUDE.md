@@ -45,7 +45,10 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 node --test tests/model.test.mjs          # unit
 python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (51 checks)
 ```
-Both pass. The Firebase backend has NOT been executed yet: the workspace that built it couldn't reach Firebase.
+npm install && npm run test:emulator       # Firestore + Auth emulators: rules tests (every allow/deny) + backend-firebase.js integration tests
+```
+All pass. The emulator tests import `backend-firebase.js` in Node with the npm `firebase@10.12.2` package (same version as the CDN) through `createBackend({sdk, config, emulator})`; the site calls it with no arguments. The browser e2e has NOT been run against the emulator: the session network blocks www.gstatic.com, where the site loads the SDK. Email/Password is always enabled in the Auth emulator, so the self-check's Email/Password row fails there by design.
+```
 
 ## Open work, in priority order
 1. **Apply the security review findings:**

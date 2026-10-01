@@ -1,0 +1,4434 @@
+{
+ "format": "crisis-sim-script/v1",
+ "case": {
+  "title": "Sample",
+  "company": "Sample Aerospace",
+  "summary": "Placeholder case used by the automated tests. Contains no real case content.",
+  "roles": [
+   {
+    "code": "CEO",
+    "character": "CEO Character",
+    "title": "Chief Executive Officer"
+   },
+   {
+    "code": "CFO",
+    "character": "CFO Character",
+    "title": "Chief Financial Officer"
+   },
+   {
+    "code": "CCO",
+    "character": "CCO Character",
+    "title": "Chief Communications Officer"
+   },
+   {
+    "code": "CLO",
+    "character": "CLO Character",
+    "title": "Chief Legal Officer"
+   },
+   {
+    "code": "CDO",
+    "character": "CDO Character",
+    "title": "Chief Development Officer"
+   },
+   {
+    "code": "CHRO",
+    "character": "CHRO Character",
+    "title": "Chief Human Resources Officer"
+   },
+   {
+    "code": "SVP",
+    "character": "SVP Character",
+    "title": "Senior Vice President"
+   }
+  ]
+ },
+ "items": [
+  {
+   "id": "R01",
+   "release": "1",
+   "seq": 1,
+   "offsetMin": 0,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R01",
+   "to": "Placeholder recipients",
+   "subject": "Subject R01",
+   "body": "Placeholder body for R01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R01.",
+   "source": "packet"
+  },
+  {
+   "id": "S01-01",
+   "release": "1",
+   "seq": 2,
+   "offsetMin": 0.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-02",
+   "release": "1",
+   "seq": 3,
+   "offsetMin": 0.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-03",
+   "release": "1",
+   "seq": 4,
+   "offsetMin": 1.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-04",
+   "release": "1",
+   "seq": 5,
+   "offsetMin": 1.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-05",
+   "release": "1",
+   "seq": 6,
+   "offsetMin": 2.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-06",
+   "release": "1",
+   "seq": 7,
+   "offsetMin": 2.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-07",
+   "release": "1",
+   "seq": 8,
+   "offsetMin": 3.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-08",
+   "release": "1",
+   "seq": 9,
+   "offsetMin": 3.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S01-09",
+   "release": "1",
+   "seq": 10,
+   "offsetMin": 4.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s01-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S01-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R02",
+   "release": "2",
+   "seq": 11,
+   "offsetMin": 5,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "voicemail",
+   "from": "Sender R02",
+   "to": "Placeholder recipients",
+   "subject": "REMINDER: Voicemail placeholder",
+   "body": "Placeholder body for R02.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "audio",
+     "url": "https://example.com/R02/1"
+    }
+   ],
+   "audience": {
+    "roles": [
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R02.",
+   "source": "packet"
+  },
+  {
+   "id": "S02-01",
+   "release": "2",
+   "seq": 12,
+   "offsetMin": 5.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-02",
+   "release": "2",
+   "seq": 13,
+   "offsetMin": 5.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-03",
+   "release": "2",
+   "seq": 14,
+   "offsetMin": 5.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-04",
+   "release": "2",
+   "seq": 15,
+   "offsetMin": 6.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-05",
+   "release": "2",
+   "seq": 16,
+   "offsetMin": 6.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-06",
+   "release": "2",
+   "seq": 17,
+   "offsetMin": 7.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-07",
+   "release": "2",
+   "seq": 18,
+   "offsetMin": 7.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-08",
+   "release": "2",
+   "seq": 19,
+   "offsetMin": 8.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-09",
+   "release": "2",
+   "seq": 20,
+   "offsetMin": 8.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-10",
+   "release": "2",
+   "seq": 21,
+   "offsetMin": 9.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S02-11",
+   "release": "2",
+   "seq": 22,
+   "offsetMin": 9.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s02-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S02-11.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R03",
+   "release": "3",
+   "seq": 23,
+   "offsetMin": 10,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R03",
+   "to": "Placeholder recipients",
+   "subject": "Subject R03",
+   "body": "Placeholder body for R03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R03.",
+   "source": "packet"
+  },
+  {
+   "id": "S03-01",
+   "release": "3",
+   "seq": 24,
+   "offsetMin": 10.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-02",
+   "release": "3",
+   "seq": 25,
+   "offsetMin": 10.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-03",
+   "release": "3",
+   "seq": 26,
+   "offsetMin": 11.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-04",
+   "release": "3",
+   "seq": 27,
+   "offsetMin": 11.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-05",
+   "release": "3",
+   "seq": 28,
+   "offsetMin": 12.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-06",
+   "release": "3",
+   "seq": 29,
+   "offsetMin": 12.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-07",
+   "release": "3",
+   "seq": 30,
+   "offsetMin": 13.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-08",
+   "release": "3",
+   "seq": 31,
+   "offsetMin": 13.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-08.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S03-08/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S03-09",
+   "release": "3",
+   "seq": 32,
+   "offsetMin": 14.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s03-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S03-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R04",
+   "release": "4",
+   "seq": 33,
+   "offsetMin": 15,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "audio",
+   "from": "Sender R04",
+   "to": "Placeholder recipients",
+   "subject": "Subject R04",
+   "body": "Placeholder body for R04.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "audio",
+     "url": "https://example.com/R04/1"
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CDO",
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R04.",
+   "source": "packet"
+  },
+  {
+   "id": "S04-01",
+   "release": "4",
+   "seq": 34,
+   "offsetMin": 15.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S04-01/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-02",
+   "release": "4",
+   "seq": 35,
+   "offsetMin": 15.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-03",
+   "release": "4",
+   "seq": 36,
+   "offsetMin": 15.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-04",
+   "release": "4",
+   "seq": 37,
+   "offsetMin": 16.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-05",
+   "release": "4",
+   "seq": 38,
+   "offsetMin": 16.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-06",
+   "release": "4",
+   "seq": 39,
+   "offsetMin": 17.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-07",
+   "release": "4",
+   "seq": 40,
+   "offsetMin": 17.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-08",
+   "release": "4",
+   "seq": 41,
+   "offsetMin": 18.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-09",
+   "release": "4",
+   "seq": 42,
+   "offsetMin": 18.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R05",
+   "release": "5",
+   "seq": 43,
+   "offsetMin": 19,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R05",
+   "to": "Placeholder recipients",
+   "subject": "Subject R05",
+   "body": "Placeholder body for R05.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/R05/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R05.",
+   "source": "packet"
+  },
+  {
+   "id": "S04-10",
+   "release": "4",
+   "seq": 44,
+   "offsetMin": 19.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S04-11",
+   "release": "4",
+   "seq": 45,
+   "offsetMin": 19.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s04-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S04-11.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S04-11/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-01",
+   "release": "5",
+   "seq": 46,
+   "offsetMin": 20.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S05-01/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-02",
+   "release": "5",
+   "seq": 47,
+   "offsetMin": 20.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-03",
+   "release": "5",
+   "seq": 48,
+   "offsetMin": 20.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-03.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S05-03/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-04",
+   "release": "5",
+   "seq": 49,
+   "offsetMin": 21.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-05",
+   "release": "5",
+   "seq": 50,
+   "offsetMin": 21.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-06",
+   "release": "5",
+   "seq": 51,
+   "offsetMin": 22.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-06.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S05-06/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-07",
+   "release": "5",
+   "seq": 52,
+   "offsetMin": 22.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-07.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S05-07/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-08",
+   "release": "5",
+   "seq": 53,
+   "offsetMin": 23.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-09",
+   "release": "5",
+   "seq": 54,
+   "offsetMin": 23.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-10",
+   "release": "5",
+   "seq": 55,
+   "offsetMin": 24.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S05-11",
+   "release": "5",
+   "seq": 56,
+   "offsetMin": 24.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s05-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S05-11.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S05-11/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R06",
+   "release": "6",
+   "seq": 57,
+   "offsetMin": 25,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "audio",
+   "from": "Sender R06",
+   "to": "Placeholder recipients",
+   "subject": "Subject R06",
+   "body": "Placeholder body for R06.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "audio",
+     "url": "https://example.com/R06/1"
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CDO",
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R06.",
+   "source": "packet"
+  },
+  {
+   "id": "S06-01",
+   "release": "6",
+   "seq": 58,
+   "offsetMin": 25.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-02",
+   "release": "6",
+   "seq": 59,
+   "offsetMin": 26.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-03",
+   "release": "6",
+   "seq": 60,
+   "offsetMin": 27.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-03.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S06-03/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-04",
+   "release": "6",
+   "seq": 61,
+   "offsetMin": 28.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-05",
+   "release": "6",
+   "seq": 62,
+   "offsetMin": 29.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-06",
+   "release": "6",
+   "seq": 63,
+   "offsetMin": 30.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-07",
+   "release": "6",
+   "seq": 64,
+   "offsetMin": 31.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-07.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S06-07/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-08",
+   "release": "6",
+   "seq": 65,
+   "offsetMin": 32.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S06-09",
+   "release": "6",
+   "seq": 66,
+   "offsetMin": 33.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s06-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S06-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R07",
+   "release": "7",
+   "seq": 67,
+   "offsetMin": 35,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R07",
+   "to": "Placeholder recipients",
+   "subject": "Subject R07",
+   "body": "Placeholder body for R07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R07.",
+   "source": "packet"
+  },
+  {
+   "id": "S07-01",
+   "release": "7",
+   "seq": 68,
+   "offsetMin": 35.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-02",
+   "release": "7",
+   "seq": 69,
+   "offsetMin": 35.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-03",
+   "release": "7",
+   "seq": 70,
+   "offsetMin": 36.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-04",
+   "release": "7",
+   "seq": 71,
+   "offsetMin": 37.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-05",
+   "release": "7",
+   "seq": 72,
+   "offsetMin": 38.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-06",
+   "release": "7",
+   "seq": 73,
+   "offsetMin": 39.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-07",
+   "release": "7",
+   "seq": 74,
+   "offsetMin": 40.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-08",
+   "release": "7",
+   "seq": 75,
+   "offsetMin": 40.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-09",
+   "release": "7",
+   "seq": 76,
+   "offsetMin": 41.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-10",
+   "release": "7",
+   "seq": 77,
+   "offsetMin": 42.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-11",
+   "release": "7",
+   "seq": 78,
+   "offsetMin": 43.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-11.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S07-12",
+   "release": "7",
+   "seq": 79,
+   "offsetMin": 44.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s07-12",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S07-12.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S07-12/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R08",
+   "release": "8",
+   "seq": 80,
+   "offsetMin": 45,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R08",
+   "to": "Placeholder recipients",
+   "subject": "Subject R08",
+   "body": "Placeholder body for R08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CDO",
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R08.",
+   "source": "packet"
+  },
+  {
+   "id": "S08-01",
+   "release": "8",
+   "seq": 81,
+   "offsetMin": 45.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-02",
+   "release": "8",
+   "seq": 82,
+   "offsetMin": 45.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-03",
+   "release": "8",
+   "seq": 83,
+   "offsetMin": 46.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-03.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S08-03/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-04",
+   "release": "8",
+   "seq": 84,
+   "offsetMin": 46.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-04.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/S08-04/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-05",
+   "release": "8",
+   "seq": 85,
+   "offsetMin": 47.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-05.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S08-05/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-06",
+   "release": "8",
+   "seq": 86,
+   "offsetMin": 47.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-07",
+   "release": "8",
+   "seq": 87,
+   "offsetMin": 48.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-08",
+   "release": "8",
+   "seq": 88,
+   "offsetMin": 48.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-08.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S08-08/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S08-09",
+   "release": "8",
+   "seq": 89,
+   "offsetMin": 49.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s08-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S08-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R09",
+   "release": "9",
+   "seq": 90,
+   "offsetMin": 50,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "news",
+   "from": "Sender R09",
+   "to": "Placeholder recipients",
+   "subject": "Subject R09",
+   "body": "Placeholder body for R09.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/R09/1"
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R09.",
+   "source": "packet"
+  },
+  {
+   "id": "S09-01",
+   "release": "9",
+   "seq": 91,
+   "offsetMin": 50.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/S09-01/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for S09-01.",
+   "source": "packet"
+  },
+  {
+   "id": "S09-02",
+   "release": "9",
+   "seq": 92,
+   "offsetMin": 50.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-02.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S09-02/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-03",
+   "release": "9",
+   "seq": 93,
+   "offsetMin": 50.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-04",
+   "release": "9",
+   "seq": 94,
+   "offsetMin": 51.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-05",
+   "release": "9",
+   "seq": 95,
+   "offsetMin": 51.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-06",
+   "release": "9",
+   "seq": 96,
+   "offsetMin": 52.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-06.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S09-06/1"
+    },
+    {
+     "label": "Attachment 2",
+     "type": "image",
+     "url": "https://example.com/S09-06/2"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-07",
+   "release": "9",
+   "seq": 97,
+   "offsetMin": 52.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-08",
+   "release": "9",
+   "seq": 98,
+   "offsetMin": 52.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-09",
+   "release": "9",
+   "seq": 99,
+   "offsetMin": 53.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-09.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S09-09/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-10",
+   "release": "9",
+   "seq": 100,
+   "offsetMin": 53.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-11",
+   "release": "9",
+   "seq": 101,
+   "offsetMin": 54.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-11.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S09-12",
+   "release": "9",
+   "seq": 102,
+   "offsetMin": 54.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s09-12",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S09-12.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R10",
+   "release": "10",
+   "seq": 103,
+   "offsetMin": 55,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R10",
+   "to": "Placeholder recipients",
+   "subject": "Subject R10",
+   "body": "Placeholder body for R10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R10.",
+   "source": "packet"
+  },
+  {
+   "id": "S10-01",
+   "release": "10",
+   "seq": 104,
+   "offsetMin": 55.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": "https://example.com/S10-01/1"
+    },
+    {
+     "label": "Attachment 2",
+     "type": "image",
+     "url": "https://example.com/S10-01/2"
+    },
+    {
+     "label": "Attachment 3",
+     "type": "image",
+     "url": "https://example.com/S10-01/3"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for S10-01.",
+   "source": "packet"
+  },
+  {
+   "id": "S10-02",
+   "release": "10",
+   "seq": 105,
+   "offsetMin": 56.1,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-03",
+   "release": "10",
+   "seq": 106,
+   "offsetMin": 57.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-04",
+   "release": "10",
+   "seq": 107,
+   "offsetMin": 58.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-05",
+   "release": "10",
+   "seq": 108,
+   "offsetMin": 59.4,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-06",
+   "release": "10",
+   "seq": 109,
+   "offsetMin": 60.6,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-07",
+   "release": "10",
+   "seq": 110,
+   "offsetMin": 61.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-08",
+   "release": "10",
+   "seq": 111,
+   "offsetMin": 62.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S10-09",
+   "release": "10",
+   "seq": 112,
+   "offsetMin": 63.9,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s10-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S10-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R11a",
+   "release": "11a",
+   "seq": 113,
+   "offsetMin": 65,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R11a",
+   "to": "Placeholder recipients",
+   "subject": "Subject R11a",
+   "body": "Placeholder body for R11a.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO",
+     "CFO",
+     "CDO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R11a.",
+   "source": "packet"
+  },
+  {
+   "id": "R11b",
+   "release": "11b",
+   "seq": 114,
+   "offsetMin": 65,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R11b",
+   "to": "Placeholder recipients",
+   "subject": "Subject R11b",
+   "body": "Placeholder body for R11b.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": null
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CCO",
+     "CHRO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R11b.",
+   "source": "packet"
+  },
+  {
+   "id": "R11c",
+   "release": "11c",
+   "seq": 115,
+   "offsetMin": 65,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R11c",
+   "to": "Placeholder recipients",
+   "subject": "Subject R11c",
+   "body": "Placeholder body for R11c.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R11c.",
+   "source": "packet"
+  },
+  {
+   "id": "S11-01",
+   "release": "11 ABC",
+   "seq": 116,
+   "offsetMin": 65.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S11-02",
+   "release": "11 ABC",
+   "seq": 117,
+   "offsetMin": 66.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S11-03",
+   "release": "11 ABC",
+   "seq": 118,
+   "offsetMin": 68.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S11-04",
+   "release": "11 ABC",
+   "seq": 119,
+   "offsetMin": 70.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S11-05",
+   "release": "11 ABC",
+   "seq": 120,
+   "offsetMin": 71.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S11-06",
+   "release": "11 ABC",
+   "seq": 121,
+   "offsetMin": 73.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s11-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S11-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R12",
+   "release": "12",
+   "seq": 122,
+   "offsetMin": 75,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R12",
+   "to": "Placeholder recipients",
+   "subject": "Subject R12",
+   "body": "Placeholder body for R12.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CLO",
+     "CHRO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R12.",
+   "source": "packet"
+  },
+  {
+   "id": "S12-01",
+   "release": "12",
+   "seq": 123,
+   "offsetMin": 75.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S12-02",
+   "release": "12",
+   "seq": 124,
+   "offsetMin": 75.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S12-03",
+   "release": "12",
+   "seq": 125,
+   "offsetMin": 76.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S12-04",
+   "release": "12",
+   "seq": 126,
+   "offsetMin": 77.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S12-05",
+   "release": "12",
+   "seq": 127,
+   "offsetMin": 78.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S12-06",
+   "release": "12",
+   "seq": 128,
+   "offsetMin": 79.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s12-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S12-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R13",
+   "release": "13",
+   "seq": 129,
+   "offsetMin": 80,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "phone",
+   "from": "Sender R13",
+   "to": "Placeholder recipients",
+   "subject": "Phone call: Communication Decision",
+   "body": "Cast: placeholder. Script. Note to actors: placeholder call script. Topic 1: placeholder.",
+   "studentBody": "Incoming call placeholder: a facilitator will join your room.",
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R13.",
+   "source": "packet"
+  },
+  {
+   "id": "S13-01",
+   "release": "13-15",
+   "seq": 130,
+   "offsetMin": 80.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/S13-01/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for S13-01.",
+   "source": "packet"
+  },
+  {
+   "id": "S13-02",
+   "release": "13-15",
+   "seq": 131,
+   "offsetMin": 85.8,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S13-03",
+   "release": "13-15",
+   "seq": 132,
+   "offsetMin": 91.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S13-04",
+   "release": "13-15",
+   "seq": 133,
+   "offsetMin": 97.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S13-05",
+   "release": "13-15",
+   "seq": 134,
+   "offsetMin": 103.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S13-06",
+   "release": "13-15",
+   "seq": 135,
+   "offsetMin": 109.2,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s13-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S13-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R13b",
+   "release": "13b",
+   "seq": 136,
+   "offsetMin": 110,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R13b",
+   "to": "Placeholder recipients",
+   "subject": "Need to connect on Zoom (fallback placeholder)",
+   "body": "Placeholder body for R13b.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R13b.",
+   "source": "packet"
+  },
+  {
+   "id": "R14a",
+   "release": "14a",
+   "seq": 137,
+   "offsetMin": 110,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R14a",
+   "to": "Placeholder recipients",
+   "subject": "Subject R14a",
+   "body": "Placeholder body for R14a.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CFO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R14a.",
+   "source": "packet"
+  },
+  {
+   "id": "R14b",
+   "release": "14b",
+   "seq": 138,
+   "offsetMin": 110,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "news",
+   "from": "Sender R14b",
+   "to": "Placeholder recipients",
+   "subject": "Subject R14b",
+   "body": "Placeholder body for R14b.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/R14b/1"
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R14b.",
+   "source": "packet"
+  },
+  {
+   "id": "R15",
+   "release": "15",
+   "seq": 139,
+   "offsetMin": 115,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "article",
+   "from": "Sender R15",
+   "to": "Placeholder recipients",
+   "subject": "Subject R15",
+   "body": "Placeholder body for R15.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO",
+     "CLO",
+     "CDO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R15.",
+   "source": "packet"
+  },
+  {
+   "id": "S16-01",
+   "release": "16-17",
+   "seq": 140,
+   "offsetMin": 115.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-01.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/S16-01/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for S16-01.",
+   "source": "packet"
+  },
+  {
+   "id": "S16-02",
+   "release": "16-17",
+   "seq": 141,
+   "offsetMin": 117.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R16",
+   "release": "16",
+   "seq": 142,
+   "offsetMin": 120,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R16",
+   "to": "Placeholder recipients",
+   "subject": "Subject R16",
+   "body": "Placeholder body for R16.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R16.",
+   "source": "packet"
+  },
+  {
+   "id": "S16-03",
+   "release": "16-17",
+   "seq": 143,
+   "offsetMin": 120.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S16-04",
+   "release": "16-17",
+   "seq": 144,
+   "offsetMin": 122.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S16-05",
+   "release": "16-17",
+   "seq": 145,
+   "offsetMin": 125.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S16-06",
+   "release": "16-17",
+   "seq": 146,
+   "offsetMin": 127.5,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s16-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S16-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R17",
+   "release": "17",
+   "seq": 147,
+   "offsetMin": 130,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R17",
+   "to": "Placeholder recipients",
+   "subject": "Subject R17",
+   "body": "Placeholder body for R17.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CLO",
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R17.",
+   "source": "packet"
+  },
+  {
+   "id": "S18-01",
+   "release": "18",
+   "seq": 148,
+   "offsetMin": 130.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-02",
+   "release": "18",
+   "seq": 149,
+   "offsetMin": 131.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-03",
+   "release": "18",
+   "seq": 150,
+   "offsetMin": 133.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R18",
+   "release": "18",
+   "seq": 151,
+   "offsetMin": 135,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R18",
+   "to": "Placeholder recipients",
+   "subject": "Subject R18",
+   "body": "Placeholder body for R18.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CHRO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R18.",
+   "source": "packet"
+  },
+  {
+   "id": "S18-04",
+   "release": "18",
+   "seq": 152,
+   "offsetMin": 135.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-05",
+   "release": "18",
+   "seq": 153,
+   "offsetMin": 136.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-06",
+   "release": "18",
+   "seq": 154,
+   "offsetMin": 138.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-07",
+   "release": "18",
+   "seq": 155,
+   "offsetMin": 140.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-08",
+   "release": "18",
+   "seq": 156,
+   "offsetMin": 141.7,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S18-09",
+   "release": "18",
+   "seq": 157,
+   "offsetMin": 143.3,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s18-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S18-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R19",
+   "release": "19",
+   "seq": 158,
+   "offsetMin": 145,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "audio",
+   "from": "Sender R19",
+   "to": "Placeholder recipients",
+   "subject": "Subject R19",
+   "body": "Placeholder body for R19.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "audio",
+     "url": "https://example.com/R19/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R19.",
+   "source": "packet"
+  },
+  {
+   "id": "S19-01",
+   "release": "19-22",
+   "seq": 159,
+   "offsetMin": 145.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-01",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-02",
+   "release": "19-22",
+   "seq": 160,
+   "offsetMin": 150.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-02",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R20",
+   "release": "20",
+   "seq": 161,
+   "offsetMin": 155,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "article",
+   "from": "Sender R20",
+   "to": "Placeholder recipients",
+   "subject": "Subject R20",
+   "body": "Placeholder body for R20.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": null
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CCO",
+     "CLO",
+     "CHRO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R20.",
+   "source": "packet"
+  },
+  {
+   "id": "S19-03",
+   "release": "19-22",
+   "seq": 162,
+   "offsetMin": 155.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-03",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R21",
+   "release": "21",
+   "seq": 163,
+   "offsetMin": 160,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "news",
+   "from": "Sender R21",
+   "to": "Placeholder recipients",
+   "subject": "Subject R21",
+   "body": "Placeholder body for R21.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "video",
+     "url": "https://example.com/R21/1"
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R21.",
+   "source": "packet"
+  },
+  {
+   "id": "S19-04",
+   "release": "19-22",
+   "seq": 164,
+   "offsetMin": 160.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-04",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-05",
+   "release": "19-22",
+   "seq": 165,
+   "offsetMin": 165.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-05",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R22",
+   "release": "22",
+   "seq": 166,
+   "offsetMin": 170,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R22",
+   "to": "Placeholder recipients",
+   "subject": "Subject R22",
+   "body": "Placeholder body for R22.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO",
+     "CDO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R22.",
+   "source": "packet"
+  },
+  {
+   "id": "S19-06",
+   "release": "19-22",
+   "seq": 167,
+   "offsetMin": 170.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-06",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R23",
+   "release": "23",
+   "seq": 168,
+   "offsetMin": 175,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R23",
+   "to": "Placeholder recipients",
+   "subject": "Subject R23",
+   "body": "Placeholder body for R23.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": null
+    }
+   ],
+   "audience": {
+    "roles": [
+     "CLO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R23.",
+   "source": "packet"
+  },
+  {
+   "id": "S19-07",
+   "release": "19-22",
+   "seq": 169,
+   "offsetMin": 175.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-08",
+   "release": "19-22",
+   "seq": 170,
+   "offsetMin": 180.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-09",
+   "release": "19-22",
+   "seq": 171,
+   "offsetMin": 185.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-09",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-10",
+   "release": "19-22",
+   "seq": 172,
+   "offsetMin": 190.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-10",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-11",
+   "release": "19-22",
+   "seq": 173,
+   "offsetMin": 195.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-11",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-11.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-12",
+   "release": "19-22",
+   "seq": 174,
+   "offsetMin": 200.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-12",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-12.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "S19-13",
+   "release": "19-22",
+   "seq": 175,
+   "offsetMin": 205.0,
+   "manualOnly": false,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_s19-13",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for S19-13.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "",
+   "source": "packet"
+  },
+  {
+   "id": "R24",
+   "release": "24",
+   "seq": 176,
+   "offsetMin": 180,
+   "manualOnly": false,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender R24",
+   "to": "Placeholder recipients",
+   "subject": "Subject R24",
+   "body": "Placeholder body for R24.",
+   "studentBody": null,
+   "media": [
+    {
+     "label": "Attachment 1",
+     "type": "image",
+     "url": null
+    }
+   ],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for R24.",
+   "source": "packet"
+  },
+  {
+   "id": "P01",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P01",
+   "to": "Placeholder recipients",
+   "subject": "Subject P01",
+   "body": "Placeholder body for P01.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P01.",
+   "source": "prepared"
+  },
+  {
+   "id": "P02",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P02",
+   "to": "Placeholder recipients",
+   "subject": "Subject P02",
+   "body": "Placeholder body for P02.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CFO",
+     "CEO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P02.",
+   "source": "prepared"
+  },
+  {
+   "id": "P03",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P03",
+   "to": "Placeholder recipients",
+   "subject": "Subject P03",
+   "body": "Placeholder body for P03.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CLO",
+     "SVP"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P03.",
+   "source": "prepared"
+  },
+  {
+   "id": "P04",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P04",
+   "to": "Placeholder recipients",
+   "subject": "Subject P04",
+   "body": "Placeholder body for P04.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CHRO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P04.",
+   "source": "prepared"
+  },
+  {
+   "id": "P05",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P05",
+   "to": "Placeholder recipients",
+   "subject": "Subject P05",
+   "body": "Placeholder body for P05.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P05.",
+   "source": "prepared"
+  },
+  {
+   "id": "P06",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P06",
+   "to": "Placeholder recipients",
+   "subject": "Subject P06",
+   "body": "Placeholder body for P06.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO",
+     "CDO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P06.",
+   "source": "prepared"
+  },
+  {
+   "id": "P07",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_p07",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for P07.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P07.",
+   "source": "prepared"
+  },
+  {
+   "id": "P08",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "social",
+   "kind": "social",
+   "from": "@user_p08",
+   "to": "",
+   "subject": "",
+   "body": "Placeholder body for P08.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": "ALL",
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P08.",
+   "source": "prepared"
+  },
+  {
+   "id": "P09",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P09",
+   "to": "Placeholder recipients",
+   "subject": "Subject P09",
+   "body": "Placeholder body for P09.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CEO",
+     "CFO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P09.",
+   "source": "prepared"
+  },
+  {
+   "id": "P10",
+   "release": "prep",
+   "seq": 0,
+   "offsetMin": null,
+   "manualOnly": true,
+   "channel": "inbox",
+   "kind": "email",
+   "from": "Sender P10",
+   "to": "Placeholder recipients",
+   "subject": "Subject P10",
+   "body": "Placeholder body for P10.",
+   "studentBody": null,
+   "media": [],
+   "audience": {
+    "roles": [
+     "CCO",
+     "CFO"
+    ],
+    "teams": "ALL"
+   },
+   "packetTime": null,
+   "notes": "Placeholder facilitator note for P10.",
+   "source": "prepared"
+  }
+ ]
+}

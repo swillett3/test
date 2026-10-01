@@ -1,0 +1,9 @@
+# Real case content must never be committed (public repo)
+starnight-script.json
+*-script.local.json
+private/
+# Test output
+.shots/
+__pycache__/
+node_modules/
+.DS_Store

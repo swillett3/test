@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// Security rules for the crisis simulation.
+// Paste this into Firebase console → Firestore Database → Rules, then click Publish.
+// The admin list below must match ADMIN_EMAILS in js/config.js.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() in [
+          'sam_willett@berkeley.edu',
+          'amy.chan@berkeley.edu'
+        ];
+    }
+
+    // What students see: the released feed, the team list and the start time.
+    match /public/{docId} {
+      allow read: if docId in ['config', 'feed'];
+      allow write: if isAdmin();
+    }
+
+    // The full script (including unreleased messages and facilitator notes) and auto-release state.
+    match /private/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Student responses: anyone signed in (students sign in anonymously) can add one;
+    // only facilitators can read, mark or delete them.
+    match /responses/{responseId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['team', 'role', 'kind', 'text', 'replyTo', 'name', 'uid', 'createdAt'])
+        && request.resource.data.keys().hasAll(['team', 'role', 'kind', 'text', 'uid', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.team is string && request.resource.data.team.size() <= 20
+        && request.resource.data.role is string && request.resource.data.role.size() <= 10
+        && request.resource.data.kind is string && request.resource.data.kind.size() <= 30
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 4000
+        && (!('replyTo' in request.resource.data) || (request.resource.data.replyTo is string && request.resource.data.replyTo.size() <= 80))
+        && (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 80));
+    }
+
+    // Everything else is closed.
+  }
+}

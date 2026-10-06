@@ -56,18 +56,9 @@ All pass. The emulator tests import `backend-firebase.js` in Node with the npm `
    - consistency between release, retract and edit
    - form state lost on re-render
    - reconnect behavior
-4. **Write `SETUP.md` for Sam**, assuming he isn't a developer:
-   - Create the Firebase project.
-   - Upgrade to Blaze with a budget alert, so a student scripting a flood can't exhaust the free quota mid-session.
-   - Enable only the Anonymous and Google sign-in methods. Keep Email/Password and all other providers disabled.
-   - Publish the rules.
-   - Paste the web config into `site/js/config.js`.
-   - Hosting: GitHub Pages via an Actions workflow that publishes only `site/`, or Firebase Hosting. Add the hosting domain under Authentication → Settings → Authorized domains.
-   - Share the StarNight Drive media files with the class.
-   - Import the script.
-   - Run the self-check.
-   - Run a full dry run with volunteers.
-5. **Hosting.** Pick and set it up. If GitHub Pages, add `.github/workflows/pages.yml` that deploys `site/` only.
+4. ~~Write `SETUP.md` for Sam~~ **Done** (10/5). Keep it in sync if setup steps change.
+5. ~~Hosting~~ **Done**: GitHub Pages via `.github/workflows/pages.yml`, which deploys `site/` on every push to `main`. Sam still has to enable Pages (Settings → Pages → Source: GitHub Actions) and do the Firebase steps in SETUP.md.
+6. **Still open:** browser e2e against the emulator (needs www.gstatic.com allowed); the live dry run with volunteers (Sam, by 10/19).
 
 ## Known limits (accepted for now; tell Sam if asked)
 - **Released messages are visible to all roles in dev tools.** All released messages for every role and team sit in one public document and are filtered in the browser, so a student using dev tools could read messages meant for other roles or teams. Unreleased messages are never exposed.

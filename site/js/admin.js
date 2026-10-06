@@ -1054,6 +1054,11 @@ function replyTo(r) {
   renderAll();
 }
 
+/** Today's date as YYYY-MM-DD in the facilitator's own time zone (toISOString would give UTC). */
+function localDate(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 function mostFrequentSender() {
   const counts = {};
   for (const it of Object.values(items())) if (it.channel === "inbox" && it.from) counts[it.from] = (counts[it.from] || 0) + 1;
@@ -1074,7 +1079,7 @@ function exportResponses() {
       { label: "Handled", get: (r) => (r.handled ? "yes" : "") },
     ],
   );
-  download(`responses-${new Date().toISOString().slice(0, 10)}.csv`, csv, "text/csv");
+  download(`responses-${localDate()}.csv`, csv, "text/csv");
 }
 
 // ---------- preview ----------
@@ -1245,7 +1250,7 @@ function exportScript() {
     case: { title: (S.script.meta && S.script.meta.title) || cfg().title, company: cfg().company, summary: (S.script.meta && S.script.meta.summary) || "", roles: roles() },
     items: Object.values(items()).sort(compareSchedule(cfg())),
   };
-  download(`script-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(out, null, 1), "application/json");
+  download(`script-${localDate()}.json`, JSON.stringify(out, null, 1), "application/json");
 }
 
 function printRunSheet() {

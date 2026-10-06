@@ -55,7 +55,10 @@ Firebase is Google's service that stores the messages and pushes them to student
 4. Click **Anonymous**, turn it **on**, then **Save**. This lets students in without accounts.
 5. Click **Add new provider** → **Google**, turn it **on**, and pick your email as the **Project support email**. Click **Save**. This is how you and Amy sign in.
 6. **Do not enable anything else.** Email/Password especially must stay **off**, because it could let someone pose as a facilitator. The self-check in Part 5 confirms it.
-7. Open the **Settings** tab, then **Authorized domains**. Click **Add domain** and enter `swillett3.github.io`, without `https://` or `/test`.
+7. Add the website's address as an authorized domain. The quickest way there is this link: **https://console.firebase.google.com/project/_/authentication/settings** (pick your project if it asks). Otherwise use **Authentication** → the **Settings** tab at the top of the page, next to Users and Sign-in method.
+   - On that page, the left side has a short sub-menu. Click **Authorized domains** there.
+   - Click **Add domain** and enter `swillett3.github.io`, without `https://` or `/test`. Click **Add**.
+   - `localhost` and two `…firebaseapp.com` / `…web.app` addresses are already listed. Leave them.
    - Without this, the facilitator Google sign-in window won't open.
 
 ### 2d. Create the database and lock it down

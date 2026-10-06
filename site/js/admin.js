@@ -1292,19 +1292,30 @@ function printRunSheet() {
 
 async function runSelfCheck() {
   const out = clear($("s-selfcheck-out"));
-  out.appendChild(h("p", null, "Running…"));
+  const btn = $("s-selfcheck");
+  btn.disabled = true;
+  btn.textContent = "Running…";
+  out.appendChild(h("p", null, "Running the checks (up to a minute)…"));
+  out.scrollIntoView({ block: "nearest", behavior: "smooth" });
   let res;
   try {
     res = await S.backend.selfCheck();
   } catch (e) {
     clear(out).appendChild(h("p", { class: "is-error" }, "Self-check failed to run: " + (e.message || e)));
+    toast("Self-check failed to run — see the Setup tab.", { tone: "error", ms: 8000 });
     return;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Run self-check";
   }
-  const allOk = res.every((r) => r.ok);
-  add(clear(out), 
-    h("p", { class: allOk ? "is-ok" : "is-error" }, allOk ? "All checks passed." : "Some checks failed — see below and the setup guide."),
+  const passed = res.filter((r) => r.ok).length;
+  const allOk = passed === res.length;
+  add(clear(out),
+    h("p", { class: allOk ? "is-ok" : "is-error" }, allOk ? `All ${res.length} checks passed.` : `${res.length - passed} of ${res.length} checks failed — see below and the setup guide.`),
     h("table", { class: "checks" }, h("tbody", null, res.map((r) => h("tr", { class: r.ok ? "ok" : "bad" }, h("td", null, r.ok ? "✓" : "✗"), h("td", null, r.label), h("td", null, r.ok ? "" : `expected ${r.expect}, got ${r.got}`))))),
   );
+  toast(allOk ? `Self-check: all ${res.length} checks passed.` : `Self-check: ${res.length - passed} of ${res.length} checks failed.`, { tone: allOk ? undefined : "error", ms: 8000 });
+  out.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
 async function resetSim() {

@@ -24,15 +24,27 @@ function parseItems(map) {
   return out;
 }
 
-export async function createBackend() {
-  const [appMod, fs, au] = await Promise.all([
+/**
+ * The site calls this with no arguments. `opts` exists only for tests/backend.test.mjs, which passes the npm build of the
+ * same SDK version, a demo config and the local emulator address, so this file can be tested without the CDN.
+ */
+export async function createBackend(opts = {}) {
+  const [appMod, fs, au] = opts.sdk || (await Promise.all([
     import(`${BASE}/firebase-app.js`),
     import(`${BASE}/firebase-firestore.js`),
     import(`${BASE}/firebase-auth.js`),
-  ]);
-  const app = appMod.initializeApp(FIREBASE_CONFIG);
+  ]));
+  const CONFIG = opts.config || FIREBASE_CONFIG;
+  const connect = (d, a) => {
+    if (!opts.emulator) return;
+    const { host, firestorePort, authPort } = opts.emulator;
+    fs.connectFirestoreEmulator(d, host, firestorePort);
+    au.connectAuthEmulator(a, `http://${host}:${authPort}`, { disableWarnings: true });
+  };
+  const app = appMod.initializeApp(CONFIG, opts.appName);
   const db = fs.getFirestore(app);
   const auth = au.getAuth(app);
+  connect(db, auth);
 
   const ref = {
     config: fs.doc(db, "public", "config"),
@@ -140,8 +152,15 @@ export async function createBackend() {
         return keys;
       });
     },
+    /** Replaces a released copy. Returns false (and writes nothing) if it was retracted meanwhile. */
     async updateFeedEntry(key, entry) {
-      return fs.updateDoc(ref.feed, new fs.FieldPath("items", key), JSON.stringify(entry));
+      return fs.runTransaction(db, async (tx) => {
+        const snap = await tx.get(ref.feed);
+        const items = (snap.exists() && snap.data().items) || {};
+        if (!(key in items)) return false;
+        tx.update(ref.feed, new fs.FieldPath("items", key), JSON.stringify(entry));
+        return true;
+      });
     },
     async retract(key) {
       return fs.updateDoc(ref.feed, new fs.FieldPath("items", key), fs.deleteField());
@@ -170,14 +189,22 @@ export async function createBackend() {
 
     /** Signs in as an anonymous "student" in a separate app instance and probes the live security rules. */
     async selfCheck() {
+      const PROBE_TIMEOUT_MS = 10000;
+      const withTimeout = (p) =>
+        Promise.race([
+          Promise.resolve().then(p),
+          new Promise((_, rej) => setTimeout(() => rej(Object.assign(new Error("timed out after 10 s"), { code: "timeout" })), PROBE_TIMEOUT_MS)),
+        ]);
       const name = "selfcheck-" + Date.now();
-      const app2 = appMod.initializeApp(FIREBASE_CONFIG, name);
+      const app2 = appMod.initializeApp(CONFIG, name);
       const db2 = fs.getFirestore(app2);
       const auth2 = au.getAuth(app2);
+      connect(db2, auth2);
       const results = [];
+      const fail = (label, e) => results.push({ label, expect: "ok", got: "error: " + ((e && (e.code || e.message)) || e), ok: false });
       const probe = async (label, expect, fn) => {
         try {
-          await fn();
+          await withTimeout(fn);
           results.push({ label, expect, got: "allowed", ok: expect === "allowed" });
         } catch (e) {
           const denied = e && (e.code === "permission-denied" || /permission/i.test(e.message || ""));
@@ -185,47 +212,80 @@ export async function createBackend() {
         }
       };
       let createdId = null;
+      let anonUser = null;
       try {
-        const cred = await au.signInAnonymously(auth2);
-        const uid = cred.user.uid;
+        const cred = await withTimeout(() => au.signInAnonymously(auth2));
+        anonUser = cred.user;
+        const uid = anonUser.uid;
+        const resp = (extra) => ({ team: "0", role: "CEO", kind: "question", text: "Security self-check (safe to ignore)", uid, createdAt: fs.serverTimestamp(), ...extra });
         await probe("Student can read the released feed", "allowed", () => fs.getDoc(fs.doc(db2, "public", "feed")));
         await probe("Student can read team list and start time", "allowed", () => fs.getDoc(fs.doc(db2, "public", "config")));
         await probe("Student cannot read the unreleased script", "denied", () => fs.getDoc(fs.doc(db2, "private", "script")));
+        await probe("Student cannot change the unreleased script", "denied", () =>
+          fs.setDoc(fs.doc(db2, "private", "script"), { items: { hack: "{}" } }, { merge: true }),
+        );
         await probe("Student cannot read auto-release control", "denied", () => fs.getDoc(fs.doc(db2, "private", "control")));
         await probe("Student cannot add items to the feed", "denied", () =>
           fs.setDoc(fs.doc(db2, "public", "feed"), { items: { hack: "{}" } }, { merge: true }),
         );
         await probe("Student cannot change the start time", "denied", () => fs.setDoc(fs.doc(db2, "public", "config"), { simStart: 1 }, { merge: true }));
         await probe("Student can send a response", "allowed", async () => {
-          const r = await fs.addDoc(fs.collection(db2, "responses"), {
-            team: "0", role: "CEO", kind: "question", text: "Security self-check (safe to ignore)", uid, createdAt: fs.serverTimestamp(),
-          });
+          const r = await fs.addDoc(fs.collection(db2, "responses"), resp());
           createdId = r.id;
         });
-        await probe("Student cannot send a response as someone else", "denied", () =>
-          fs.addDoc(fs.collection(db2, "responses"), { team: "0", role: "CEO", kind: "question", text: "x", uid: "not-me", createdAt: fs.serverTimestamp() }),
-        );
-        await probe("Student cannot mark their own response handled", "denied", () =>
-          fs.addDoc(fs.collection(db2, "responses"), { team: "0", role: "CEO", kind: "question", text: "x", uid, handled: true, createdAt: fs.serverTimestamp() }),
-        );
+        await probe("Student cannot send a response as someone else", "denied", () => fs.addDoc(fs.collection(db2, "responses"), resp({ uid: "not-me" })));
+        await probe("Student cannot send a response already marked handled", "denied", () => fs.addDoc(fs.collection(db2, "responses"), resp({ handled: true })));
+        if (createdId) {
+          await probe("Student cannot mark their own response handled", "denied", () => fs.updateDoc(fs.doc(db2, "responses", createdId), { handled: true }));
+          await probe("Student cannot read back a single response", "denied", () => fs.getDoc(fs.doc(db2, "responses", createdId)));
+        } else {
+          results.push({ label: "Student cannot mark or read back a response (skipped: no response was created)", expect: "denied", got: "not run", ok: false });
+        }
         await probe("Student cannot read other teams' responses", "denied", () => fs.getDocs(fs.query(fs.collection(db2, "responses"), fs.limit(1))));
-        await probe("Student cannot send an oversized response", "denied", () =>
-          fs.addDoc(fs.collection(db2, "responses"), { team: "0", role: "CEO", kind: "question", text: "x".repeat(4001), uid, createdAt: fs.serverTimestamp() }),
-        );
+        await probe("Student cannot send an oversized response", "denied", () => fs.addDoc(fs.collection(db2, "responses"), resp({ text: "x".repeat(4001) })));
       } catch (e) {
         results.push({ label: "Anonymous sign-in (enable it under Authentication → Sign-in method)", expect: "allowed", got: "error: " + (e.code || e.message), ok: false });
-      } finally {
+      }
+
+      // Remove the temporary anonymous user so self-checks don't pile up accounts.
+      if (anonUser) {
         try {
-          await au.signOut(auth2);
-        } catch {}
+          await withTimeout(() => anonUser.delete());
+        } catch (e) {
+          fail("Clean-up: delete the temporary anonymous user", e);
+        }
+      }
+
+      // Email/Password sign-in must be off: otherwise anyone could create an account with a facilitator's address
+      // (unverified, so the rules still refuse it, but there is no reason to leave the door there).
+      try {
+        const addr = `selfcheck-${Date.now()}-${Math.random().toString(36).slice(2, 8)}@example.invalid`;
+        const c = await withTimeout(() => au.createUserWithEmailAndPassword(auth2, addr, "Sc-" + Math.random().toString(36).slice(2) + "-9x"));
+        results.push({ label: "Email/Password sign-in is disabled (turn it off under Authentication → Sign-in method)", expect: "auth/operation-not-allowed", got: "account created", ok: false });
         try {
-          await appMod.deleteApp(app2);
-        } catch {}
+          await withTimeout(() => c.user.delete());
+        } catch (e) {
+          fail("Clean-up: delete the test Email/Password account " + addr, e);
+        }
+      } catch (e) {
+        const ok = e && e.code === "auth/operation-not-allowed";
+        results.push({ label: "Email/Password sign-in is disabled", expect: "auth/operation-not-allowed", got: (e && (e.code || e.message)) || String(e), ok });
+      }
+
+      try {
+        await au.signOut(auth2);
+      } catch {}
+      try {
+        await appMod.deleteApp(app2);
+      } catch (e) {
+        fail("Clean-up: close the self-check connection", e);
       }
       if (createdId) {
         try {
-          await fs.deleteDoc(fs.doc(db, "responses", createdId));
-        } catch {}
+          await withTimeout(() => fs.deleteDoc(fs.doc(db, "responses", createdId)));
+        } catch (e) {
+          fail("Clean-up: delete the self-check response (delete it from the Responses tab)", e);
+        }
       }
       return results;
     },

@@ -272,6 +272,7 @@ textarea.input { resize: vertical; line-height: 1.45; }
 .switch.is-on .switch__knob { left: 23px; }
 
 .nextup { display: flex; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding: 9px 18px; background: #fff; border-bottom: 1px solid var(--line); font-size: 14px; }
+.conn-banner { padding: 10px 18px; background: #fff3cd; color: #664d03; border-bottom: 1px solid #ffe08a; font-size: 14px; font-weight: 600; }
 .nextup__count { font-weight: 700; }
 .nextup__due { color: var(--accent); font-weight: 700; }
 .nextup__muted { color: var(--ink-3); }

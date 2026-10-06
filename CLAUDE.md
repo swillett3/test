@@ -42,48 +42,23 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 
 ## Tests
 ```
-node --test tests/model.test.mjs          # unit
-python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (51 checks)
+node --test tests/model.test.mjs tests/store.test.mjs   # unit
+python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (59 checks)
+npm install && npm run test:emulator       # Firestore + Auth emulators: rules tests (every allow/deny) + backend-firebase.js integration tests
 ```
-Both pass. The Firebase backend has NOT been executed yet: the workspace that built it couldn't reach Firebase.
+All pass. The emulator tests import `backend-firebase.js` in Node with the npm `firebase@10.12.2` package (same version as the CDN) through `createBackend({sdk, config, emulator})`; the site calls it with no arguments. The browser e2e has NOT been run against the emulator: the session network blocks www.gstatic.com, where the site loads the SDK. Email/Password is always enabled in the Auth emulator, so the self-check's Email/Password row fails there by design.
 
 ## Open work, in priority order
-1. **Apply the security review findings:**
-   - Tighten `isAdmin()` in `firestore.rules` to:
-     ```
-     request.auth != null
-       && request.auth.token.firebase.sign_in_provider == 'google.com'
-       && request.auth.token.get('email_verified', false) == true
-       && request.auth.token.get('email', '').lower() in [...]
-     ```
-   - In `studentProjection`, never fall back to `body` for `kind === "phone"` when `studentBody` is empty; use a generic "incoming call" line instead.
-   - Improve `selfCheck()`:
-     - Add probes: an update of an existing response sets `handled` (expect denied); a get of a single response (denied); a write to `private/script` (denied).
-     - Add a check that Email/Password sign-in is disabled (`createUserWithEmailAndPassword` should fail with `auth/operation-not-allowed`).
-     - Give each probe a 10-second timeout.
-     - Delete the temporary anonymous user and surface cleanup failures.
-2. **Test the real backend against the Firebase emulator:**
-   - Install `firebase-tools` and `@firebase/rules-unit-testing` from npm. The emulator jar downloads from storage.googleapis.com.
-   - Write rules tests covering every allow and deny in `firestore.rules`.
-   - Run the e2e flow against the emulator, not the mock. The browser can't load the SDK from www.gstatic.com unless the environment allows it, so consider a test-only page or importing from the npm package.
-   - Check the Firebase v10 API usage in `backend-firebase.js`: onSnapshot with options, the transaction + `set` merge, FieldPath and `deleteField`, multiple app instances in `selfCheck`.
-3. **Independent code review** of `admin.js`, `student.js` and `backend-firebase.js`. Focus on:
+1. ~~Apply the security review findings~~ **Done** (Google-only `isAdmin()`, generic phone line, stronger `selfCheck()`).
+2. ~~Test the real backend against the Firebase emulator~~ **Done** for rules and `backend-firebase.js` (`npm run test:emulator`). Still open: the browser e2e against the emulator, which needs www.gstatic.com allowed in the session network.
+3. **Independent code review**: done 10/1, and Sam approved the fixes. Retract now also skips; edits re-check released copies and never resurrect retracted ones; a stale overdue prompt does nothing; the join screen keeps its picks; the console shows a connection banner and pauses auto-release while disconnected; all listeners reconnect by themselves. Scope was `admin.js`, `student.js` and `backend-firebase.js`, focusing on:
    - races between two facilitator tabs with auto-release on
    - consistency between release, retract and edit
    - form state lost on re-render
    - reconnect behavior
-4. **Write `SETUP.md` for Sam**, assuming he isn't a developer:
-   - Create the Firebase project.
-   - Upgrade to Blaze with a budget alert, so a student scripting a flood can't exhaust the free quota mid-session.
-   - Enable only the Anonymous and Google sign-in methods. Keep Email/Password and all other providers disabled.
-   - Publish the rules.
-   - Paste the web config into `site/js/config.js`.
-   - Hosting: GitHub Pages via an Actions workflow that publishes only `site/`, or Firebase Hosting. Add the hosting domain under Authentication → Settings → Authorized domains.
-   - Share the StarNight Drive media files with the class.
-   - Import the script.
-   - Run the self-check.
-   - Run a full dry run with volunteers.
-5. **Hosting.** Pick and set it up. If GitHub Pages, add `.github/workflows/pages.yml` that deploys `site/` only.
+4. ~~Write `SETUP.md` for Sam~~ **Done** (10/5). Keep it in sync if setup steps change.
+5. ~~Hosting~~ **Done**: GitHub Pages via `.github/workflows/pages.yml`, which deploys `site/` on every push to `main`. Sam still has to enable Pages (Settings → Pages → Source: GitHub Actions) and do the Firebase steps in SETUP.md.
+6. **Still open:** browser e2e against the emulator (needs www.gstatic.com allowed); the live dry run with volunteers (Sam, by 10/19).
 
 ## Known limits (accepted for now; tell Sam if asked)
 - **Released messages are visible to all roles in dev tools.** All released messages for every role and team sit in one public document and are filtered in the browser, so a student using dev tools could read messages meant for other roles or teams. Unreleased messages are never exposed.

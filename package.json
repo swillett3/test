@@ -1,0 +1,16 @@
+{
+  "name": "crisis-sim-tests",
+  "private": true,
+  "type": "module",
+  "description": "Test tooling only. The site itself (site/) has no build step and no dependencies.",
+  "scripts": {
+    "test:unit": "node --test tests/model.test.mjs tests/store.test.mjs",
+    "test:rules": "firebase emulators:exec --only firestore,auth --project demo-crisis-sim --config tests/emulator/firebase.json \"node --test tests/rules.test.mjs\"",
+    "test:emulator": "firebase emulators:exec --only firestore,auth --project demo-crisis-sim --config tests/emulator/firebase.json \"node --test --test-concurrency=1 tests/rules.test.mjs tests/backend.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "3.0.4",
+    "firebase": "10.12.2",
+    "firebase-tools": "15.32.1"
+  }
+}

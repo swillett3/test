@@ -161,6 +161,14 @@ try:
         check("opening a message marks it read", s1.title().startswith(f"({n1 - 1})") or (n1 == 1 and not s1.title().startswith("(")), s1.title())
         s1.screenshot(path=f"{SHOTS}/student-desktop.png")
 
+        # a student half-way through joining (picked, not submitted) while messages go out
+        s4 = ctx.new_page(); watch_errors(s4, "s4")
+        s4.goto(f"{BASE}/index.html?backend=mock")
+        s4.evaluate("localStorage.removeItem('csim-identity')")  # tabs share storage; start this one fresh
+        s4.goto(f"{BASE}/index.html?backend=mock")
+        expect(s4.locator("[data-team]")).to_have_count(3, timeout=5000)
+        s4.locator("[data-team='3']").click(); s4.locator("[data-role='CLO']").click(); s4.locator("#join-name").fill("Kim")
+
         # ---------- live interjection to team 2 SVP only ----------
         admin.locator(".ctab[data-tab=compose]").click()
         form = admin.locator(".compose__form")
@@ -177,6 +185,11 @@ try:
         expect(s2.locator("#inbox-list")).to_contain_text("ZZ Live check-in", timeout=5000)
         expect(s2.locator(".toast")).to_contain_text("ZZ Live check-in", timeout=5000)
         check("targeted interjection reaches team 2 SVP with a notification", True)
+        s4.wait_for_timeout(500)
+        check("join screen keeps a student's picks and name when a message is released",
+              s4.locator("#join-go").is_enabled() and s4.locator("#join-name").input_value() == "Kim"
+              and s4.locator("[data-team='3']").get_attribute("aria-pressed") == "true", s4.locator("#join-name").input_value())
+        s4.close()
         s1.wait_for_timeout(800)
         check("targeted interjection does not reach team 1", "ZZ Live" not in s1.locator("#inbox-list").inner_text() and "ZZ Live" not in s3.locator("#inbox-list").inner_text())
         s2.locator("#inbox-list .inbox-row", has_text="ZZ Live check-in").click()
@@ -242,6 +255,22 @@ try:
         expect(s2.locator("#inbox-list")).not_to_contain_text("ZZ Live check-in", timeout=5000)
         check("retracting removes the message from students' screens", True)
 
+        # a scheduled message auto-release already sent: retracting must not be undone by auto-release
+        expect(admin.locator(".cbar__autolabel")).to_have_text("Auto-release ON")
+        admin.locator(".chip[data-filter=inbox]").click()
+        row = admin.locator(".tl-row[data-id=R01]")
+        row.locator("button[data-action=more]").click()
+        admin.locator(".dialog button", has_text="Retract").click()
+        click_dialog(admin, "true")
+        expect(s1.locator("#inbox-list")).not_to_contain_text(ITEMS["R01"]["subject"], timeout=5000)
+        time.sleep(3)
+        feed_now = mock_state(admin, "public/feed")["items"]
+        check("a retracted scheduled message is not re-sent by auto-release", not any(e["sourceId"] == "R01" for e in feed_now.values()))
+        check("retracting a scheduled message marks it skipped", mock_state(admin, "private/script")["items"]["R01"]["skipped"] is True)
+        row.locator("button[data-action=release]").click()
+        expect(s1.locator("#inbox-list")).to_contain_text(ITEMS["R01"]["subject"], timeout=5000)
+        check("a retracted message can still be released by hand", True)
+
         # ---------- phone call release keeps the script private ----------
         admin.locator(".chip[data-filter=inbox]").click()
         r13 = admin.locator(".tl-row[data-id=R13]")
@@ -282,7 +311,31 @@ try:
         after = len(mock_state(admin, "public/feed")["items"])
         check("auto-release publishes newly due items without prompting", after > before and admin.locator(".dialog").count() == 0, f"{before}->{after}")
 
-        # ---------- shift-the-schedule path ----------
+        # ---------- editing a message while auto-release sends it ----------
+        sc = mock_state(admin, "private/script")["items"]
+        fd = mock_state(admin, "public/feed")["items"]
+        sent = {e["sourceId"] for e in fd.values()}
+        nxt = sorted((i for i in sc.values() if i["offsetMin"] is not None and not i["manualOnly"] and not i["skipped"]
+                      and i["id"] not in sent), key=lambda i: i["offsetMin"])[0]
+        admin.locator(".chip[data-filter=all]").click()
+        admin.locator(f".tl-row[data-id='{nxt['id']}'] button[data-action=more]").click()
+        admin.locator(".dialog button", has_text="Edit").click()
+        admin.locator(".dialog [data-f=from]").fill("ZZ edited while it went out")
+        admin.evaluate("""(off) => { const k='csim-mock:public/config'; const c=JSON.parse(localStorage.getItem(k));
+          c.simStart = Date.now() - (c.firstReleaseDelayMin + off) * 60000 + 2000; localStorage.setItem(k, JSON.stringify(c));
+          window.dispatchEvent(new StorageEvent('storage', {key: k})); }""", nxt["offsetMin"])
+        admin.wait_for_function(f"Object.values(JSON.parse(localStorage.getItem('csim-mock:public/feed')).items).some(e => e.sourceId === '{nxt['id']}')", timeout=8000)
+        click_dialog(admin, "save")
+        time.sleep(1)
+        out = [e for e in mock_state(admin, "public/feed")["items"].values() if e["sourceId"] == nxt["id"]]
+        check("an edit saved after auto-release sent the message updates the students' copy",
+              out and out[0]["from"] == "ZZ edited while it went out", str([e.get("from") for e in out]))
+
+        # ---------- shift-the-schedule path, with a second console open ----------
+        admin2 = ctx.new_page(); watch_errors(admin2, "admin2")
+        admin2.goto(f"{BASE}/admin.html?backend=mock")
+        admin2.locator("#signin-btn").click()
+        expect(admin2.locator(".console")).to_be_visible(timeout=5000)
         admin.locator("#auto-toggle").click()  # off
         time.sleep(0.5)
         admin.evaluate("""() => { const k='csim-mock:public/config'; const c=JSON.parse(localStorage.getItem(k));
@@ -296,7 +349,25 @@ try:
         n_after = len(mock_state(admin, "public/feed")["items"])
         check("shifting the schedule releases only the next item, not the backlog", 1 <= n_after - n_before <= 3, f"{n_before}->{n_after}")
         check("no second overdue prompt after shifting", admin.locator(".dialog").count() == 0)
+        expect(admin2.locator(".dialog")).to_contain_text("overdue", timeout=5000)
+        n_mid = len(mock_state(admin, "public/feed")["items"])
+        click_dialog(admin2, "release")  # the other console answers its (now stale) prompt
+        expect(admin2.locator(".toast")).to_contain_text("Nothing done", timeout=5000)
+        time.sleep(1)
+        check("a second console's stale overdue answer doesn't release the backlog",
+              len(mock_state(admin, "public/feed")["items"]) - n_mid <= 1, f"{n_mid}->{len(mock_state(admin, 'public/feed')['items'])}")
+        admin2.close()
         admin.locator("#auto-toggle").click()  # off
+
+        # ---------- losing the connection ----------
+        ctx.set_offline(True)
+        expect(admin.locator("#c-conn")).to_be_visible(timeout=5000)
+        expect(s1.locator("#status")).to_have_text("Reconnecting…", timeout=5000)
+        check("console and students show a lost connection", "paused" in admin.locator("#c-conn").inner_text())
+        ctx.set_offline(False)
+        expect(admin.locator("#c-conn")).to_be_hidden(timeout=5000)
+        expect(s1.locator("#status")).to_have_text("Live", timeout=5000)
+        check("the warnings clear when the connection is back", True)
 
         # ---------- reload keeps identity and read state ----------
         s1.reload()

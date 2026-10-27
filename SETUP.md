@@ -7,7 +7,7 @@ This guide takes you from nothing to a working simulation site.
 
 You will end up with two links:
 
-- **Student link:** `https://swillett3.github.io/test/`. Every student opens this.
+- **Student link:** `https://swillett3.github.io/test/`. Students pick their own team here. For tomorrow, use the per-team links instead (**Setup → Team links**): each is this address plus `?team=N`, and students on one only pick their role.
 - **Facilitator console:** `https://swillett3.github.io/test/admin.html`. You and Amy use this.
 
 > Optional, and best done now before you share anything: rename the repo from `test` to something like `crisis-sim` (GitHub → the repo → **Settings** → **General** → **Repository name**). The links then become `…github.io/crisis-sim/`. Nothing else in this guide changes.
@@ -148,10 +148,8 @@ If a row fails, it says what to change. Usually that's a sign-in method left on 
 4. Have them:
    - read messages
    - open a Drive attachment
-   - send a response
 5. You:
    - send a targeted interjection from **Compose / interject**
-   - reply to a response
    - release #13b to one team
    - retract something
 6. Have Amy open the console at the same time from her own laptop, so you both know it works with two facilitators.
@@ -161,7 +159,7 @@ If a row fails, it says what to change. Usually that's a sign-in method left on 
 - Open the console on a laptop that's **plugged in, with sleep turned off**. Auto-release runs from an open console tab. If every console tab is closed, releases pause until one is reopened, and the console then asks how to handle anything overdue.
 - Keep a second console tab or Amy's laptop open as a backup.
 - Use **Setup → Printable run-sheet** for a paper backup.
-- Post the student link in bCourses before class. Students who join late see everything released so far.
+- Send each team its own link from **Setup → Team links** (**Copy all team links** gives a list you can paste into bCourses or an email). Students who join late see everything released so far.
 
 ---
 

@@ -109,6 +109,7 @@ textarea.input { resize: vertical; line-height: 1.45; }
 .join .field { margin-top: 26px; max-width: 420px; }
 .join .field__label { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
 #join-go { margin-top: 18px; }
+.join__team { font-size: 17px; margin: 0 0 6px; }
 
 /* ---------- student workspace ---------- */
 .ws { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
@@ -189,26 +190,6 @@ textarea.input { resize: vertical; line-height: 1.45; }
 .post .prose p { margin: 2px 0 6px; font-size: 14.5px; }
 .post .attachments { margin-top: 6px; }
 
-.pane--respond { display: none; }
-.respond { padding: 18px 20px 30px; }
-.respond__head { display: flex; align-items: center; justify-content: space-between; }
-.respond__head h2 { font-size: 18px; }
-.respond__intro { color: var(--ink-2); font-size: 14px; }
-.respond__status { min-height: 22px; margin: 4px 0 10px; font-size: 14px; }
-.respond__sent-title { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin: 26px 0 8px; }
-.sent-list { list-style: none; margin: 0; padding: 0; }
-.sent { border-left: 3px solid var(--line-2); padding: 4px 10px; margin-bottom: 10px; display: flex; flex-direction: column; }
-.sent__time { font-size: 12px; color: var(--ink-3); }
-.sent__text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; }
-
-/* desktop: respond is a slide-over */
-@media (min-width: 1100px) {
-  .ws[data-respond="open"] .pane--respond {
-    display: block; position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); z-index: 30;
-    box-shadow: -10px 0 30px rgba(15, 27, 51, .18); overflow: auto;
-  }
-}
-
 /* tablet & phone: tabs */
 @media (max-width: 1099px) {
   .desktop-only { display: none !important; }
@@ -222,7 +203,6 @@ textarea.input { resize: vertical; line-height: 1.45; }
   .ws[data-tab="inbox"][data-reading="0"] .pane--inbox { display: block; }
   .ws[data-tab="inbox"][data-reading="1"] .pane--reader { display: block; }
   .ws[data-tab="social"] .pane--social { display: block; }
-  .ws[data-tab="respond"] .pane--respond { display: block; }
   .reader { padding: 16px 18px 40px; }
   .reader__back { display: inline-flex; }
 }
@@ -373,6 +353,9 @@ details.more summary { cursor: pointer; font-weight: 600; color: var(--blue); ma
 .card h3 { font-size: 16px; margin-bottom: 8px; }
 .card p { color: var(--ink-2); margin: 0 0 10px; font-size: 14px; }
 .copy-row { display: flex; gap: 8px; }
+.team-link { align-items: center; margin-bottom: 8px; }
+.team-link__name { width: 120px; flex: none; font-weight: 600; overflow-wrap: anywhere; }
+#s-copy-all { margin: 4px 0 14px; }
 .team-names { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 12px; }
 .checks { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
 .checks td { padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }

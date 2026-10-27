@@ -93,7 +93,6 @@ try:
         # ---------- students join ----------
         s1.locator("[data-team='1']").click()
         s1.locator("[data-role='CFO']").click()
-        s1.locator("#join-name").fill("Ana")
         s1.locator("#join-go").click()
         expect(s1.locator(".who__name")).to_have_text(NAME["CFO"], timeout=5000)
         check("join flow puts the student in their role", "team=1" in s1.url and "role=CFO" in s1.url, s1.url)
@@ -167,7 +166,7 @@ try:
         s4.evaluate("localStorage.removeItem('csim-identity')")  # tabs share storage; start this one fresh
         s4.goto(f"{BASE}/index.html?backend=mock")
         expect(s4.locator("[data-team]")).to_have_count(3, timeout=5000)
-        s4.locator("[data-team='3']").click(); s4.locator("[data-role='CLO']").click(); s4.locator("#join-name").fill("Kim")
+        s4.locator("[data-team='3']").click(); s4.locator("[data-role='CLO']").click()
 
         # ---------- live interjection to team 2 SVP only ----------
         admin.locator(".ctab[data-tab=compose]").click()
@@ -183,12 +182,13 @@ try:
         admin.screenshot(path=f"{SHOTS}/admin-compose.png", full_page=True)
         admin.locator("#cmp-send").click()
         expect(s2.locator("#inbox-list")).to_contain_text("ZZ Live check-in", timeout=5000)
-        expect(s2.locator(".toast")).to_contain_text("ZZ Live check-in", timeout=5000)
+        expect(s2.locator(".toast", has_text="ZZ Live check-in")).to_have_count(1, timeout=5000)
         check("targeted interjection reaches team 2 SVP with a notification", True)
         s4.wait_for_timeout(500)
-        check("join screen keeps a student's picks and name when a message is released",
-              s4.locator("#join-go").is_enabled() and s4.locator("#join-name").input_value() == "Kim"
-              and s4.locator("[data-team='3']").get_attribute("aria-pressed") == "true", s4.locator("#join-name").input_value())
+        check("join screen keeps a student's picks when a message is released",
+              s4.locator("#join-go").is_enabled()
+              and s4.locator("[data-team='3']").get_attribute("aria-pressed") == "true"
+              and s4.locator("[data-role='CLO']").get_attribute("aria-pressed") == "true")
         s4.close()
         s1.wait_for_timeout(800)
         check("targeted interjection does not reach team 1", "ZZ Live" not in s1.locator("#inbox-list").inner_text() and "ZZ Live" not in s3.locator("#inbox-list").inner_text())
@@ -208,42 +208,39 @@ try:
         s1.wait_for_timeout(300)
         check("HTML in messages is shown as text, never run", s1.evaluate("!window.__pwned") and s1.locator("#reader img").count() == 0)
 
-        # ---------- student response reaches the console ----------
-        s3.locator("#respond-open").click()
-        s3.locator("#r-kind").select_option("social-reply")
-        s3.locator("#r-text").fill("We are deeply sorry. <b>Full stop.</b> Statement to follow.")
-        s3.locator("#r-send").click()
-        expect(s3.locator("#r-status")).to_contain_text("Sent at", timeout=5000)
-        expect(s3.locator("#sent-list")).to_contain_text("deeply sorry")
-        expect(admin.locator("#cbadge-responses")).to_have_text("1", timeout=5000)
-        admin.locator(".ctab[data-tab=responses]").click()
-        expect(admin.locator(".resp")).to_contain_text("deeply sorry")
-        expect(admin.locator(".resp")).to_contain_text(NAME["CCO"])
-        check("student response appears in the console with team and role", True)
-        check("response HTML is shown as text in the console", admin.locator(".resp b").count() == 0)
-        admin.screenshot(path=f"{SHOTS}/admin-responses.png", full_page=True)
-        admin.locator(".resp button[data-action=handled]").click()
-        expect(admin.locator("#cbadge-responses")).to_have_text("", timeout=5000)
-        check("marking handled clears the badge", True)
+        # ---------- students can't send messages to facilitators ----------
+        check("student page has no way to send a response",
+              s3.locator("#respond-open").count() == 0 and s3.locator("#r-text").count() == 0 and s3.locator(".tab[data-tab=respond]").count() == 0)
+        check("console has no Responses tab", admin.locator(".ctab[data-tab=responses]").count() == 0)
 
-        # empty response is refused client-side
-        s3.locator("#r-text").fill("   ")
-        s3.locator("#r-send").click()
-        expect(s3.locator("#r-status")).to_contain_text("Write something")
-
-        # ---------- reply from the console goes to that team+role ----------
-        admin.locator("#rf-open").uncheck()
-        admin.locator(".resp button[data-action=reply]").click()
-        form = admin.locator(".compose__form")
-        check("reply pre-targets the responding team and role",
-              form.locator("[data-role=CCO]").is_checked() and form.locator("[data-team='1']").is_checked()
-              and not form.locator("[data-aud=all-roles]").is_checked())
-        form.locator("[data-f=subject]").fill("ZZ Re: your statement")
-        form.locator("[data-f=body]").fill("Good. Now the board.")
-        admin.locator("#cmp-send").click()
-        expect(s3.locator("#inbox-list")).to_contain_text("ZZ Re: your statement", timeout=5000)
-        s1.wait_for_timeout(500)
-        check("reply reaches only that CCO", "ZZ Re:" not in s1.locator("#inbox-list").inner_text())
+        # ---------- team links ----------
+        admin.locator(".ctab[data-tab=setup]").click()
+        expect(admin.locator("[data-team-link]")).to_have_count(3, timeout=5000)
+        link2 = admin.locator("[data-team-link='2']").input_value()
+        check("setup lists one link per team", link2.endswith("index.html?team=2&backend=mock") or "team=2" in link2, link2)
+        t5 = ctx.new_page(); watch_errors(t5, "t5")
+        t5.goto(f"{BASE}/index.html?backend=mock")
+        t5.evaluate("localStorage.removeItem('csim-identity')")
+        t5.goto(link2)
+        expect(t5.locator("#join-team")).to_contain_text("Falcons", timeout=5000)
+        check("team link skips the team picker", t5.locator("[data-team]").count() == 0)
+        t5.locator("[data-role='CEO']").click()
+        t5.locator("#join-go").click()
+        expect(t5.locator(".who__title")).to_contain_text("Falcons", timeout=5000)
+        check("team link puts the student on that team", "team=2" in t5.url and "role=CEO" in t5.url, t5.url)
+        t5.reload()
+        expect(t5.locator(".who__title")).to_contain_text("Falcons", timeout=5000)
+        t5.locator("#switch").click()
+        click_dialog(t5, "true")
+        expect(t5.locator("#join-team")).to_contain_text("Falcons", timeout=5000)
+        check("switching role on a team link keeps the team", t5.locator("[data-team]").count() == 0 and "team=2" in t5.url, t5.url)
+        t5.goto(f"{BASE}/index.html?backend=mock&team=99")
+        expect(t5.locator("[data-team]")).to_have_count(3, timeout=5000)
+        check("a link to a team that doesn't exist falls back to the team picker", True)
+        t5.goto(f"{BASE}/index.html?backend=mock")
+        expect(t5.locator("[data-team]")).to_have_count(3, timeout=5000)
+        check("the general link still lets students pick their team", True)
+        t5.close()
 
         # ---------- retract ----------
         admin.locator(".ctab[data-tab=timeline]").click()
@@ -349,10 +346,13 @@ try:
         n_after = len(mock_state(admin, "public/feed")["items"])
         check("shifting the schedule releases only the next item, not the backlog", 1 <= n_after - n_before <= 3, f"{n_before}->{n_after}")
         check("no second overdue prompt after shifting", admin.locator(".dialog").count() == 0)
-        expect(admin2.locator(".dialog")).to_contain_text("overdue", timeout=5000)
+        # The second console may have prompted before the shift reached it (then its answer is stale and must do
+        # nothing), or it may have seen the shift first and never prompted. Either is fine; the backlog must stay put.
         n_mid = len(mock_state(admin, "public/feed")["items"])
-        click_dialog(admin2, "release")  # the other console answers its (now stale) prompt
-        expect(admin2.locator(".toast")).to_contain_text("Nothing done", timeout=5000)
+        time.sleep(1.5)
+        if admin2.locator(".dialog", has_text="overdue").count():
+            click_dialog(admin2, "release")  # the other console answers its (now stale) prompt
+            expect(admin2.locator(".toast", has_text="Nothing done")).to_have_count(1, timeout=5000)
         time.sleep(1)
         check("a second console's stale overdue answer doesn't release the backlog",
               len(mock_state(admin, "public/feed")["items"]) - n_mid <= 1, f"{n_mid}->{len(mock_state(admin, 'public/feed')['items'])}")
@@ -401,9 +401,7 @@ try:
         m.locator(".tab[data-tab=social]").click()
         expect(m.locator(".pane--social")).to_be_visible()
         m.screenshot(path=f"{SHOTS}/student-mobile-social.png")
-        m.locator(".tab[data-tab=respond]").click()
-        expect(m.locator("#r-text")).to_be_visible()
-        check("mobile: inbox, social and respond tabs all work", True)
+        check("mobile: inbox and social tabs work, no respond tab", m.locator(".tab[data-tab=respond]").count() == 0)
         overflow = m.evaluate("document.documentElement.scrollWidth > window.innerWidth + 1")
         check("mobile: no horizontal scrolling", not overflow)
 

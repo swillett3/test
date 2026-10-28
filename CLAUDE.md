@@ -22,13 +22,13 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 - **Facilitators can interject live,** targeted to any set of roles × teams.
 
 ## Architecture (static site, no build step)
-- **`site/index.html` + `js/student.js`:** the student feed. Students pick a team and role, then see an inbox, a social/news feed, and a "send a response" panel.
+- **`site/index.html` + `js/student.js`:** the student feed. Students pick a team and role, then see an inbox and a social/news feed. Read-only: the "send a response" panel was removed 10/27 after the test run (Sam's call). A team link (`index.html?team=N`) locks the team so students only pick a role; the lock is kept in localStorage (`csim-team-lock`) across reloads and "Switch role", and cleared by opening the general link. A link to a missing team falls back to the picker.
 - **`site/admin.html` + `js/admin.js`:** the facilitator console. Its tabs are:
   - Timeline, with Release, targeted release, edit, skip and retract.
   - Compose/interject.
-  - Responses inbox.
+  - (The Responses tab was removed with the student response panel. `submitResponse`, the `responses/*` rules and the console's response code are still there, unused, so nothing needed redeploying.)
   - View as student.
-  - Setup: teams, import/export, printable run-sheet, security self-check, and reset.
+  - Setup: per-team student links (with "Copy all"), teams, import/export, printable run-sheet, security self-check, and reset.
 - **Auto-release runs in the facilitator's open console tab.** A 1-second loop releases items whose scheduled time has passed. If more than 3 items are over 2 minutes late, it prompts first: release all, shift the schedule, skip them, or turn auto-release off.
 - **`js/model.js`:** pure logic, unit-tested. `studentProjection()` is the only thing written to the public feed and strips notes and other facilitator-only fields.
 - **`js/backend-firebase.js`:** the real backend, Firebase JS SDK 10.12.2 from the gstatic CDN.
@@ -43,7 +43,7 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 ## Tests
 ```
 node --test tests/model.test.mjs tests/store.test.mjs   # unit
-python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + 3 students + mobile (59 checks)
+python3 tests/e2e.py                      # Playwright end-to-end on ?backend=mock: console + students + team links + mobile (62 checks)
 npm install && npm run test:emulator       # Firestore + Auth emulators: rules tests (every allow/deny) + backend-firebase.js integration tests
 ```
 All pass. The emulator tests import `backend-firebase.js` in Node with the npm `firebase@10.12.2` package (same version as the CDN) through `createBackend({sdk, config, emulator})`; the site calls it with no arguments. The browser e2e has NOT been run against the emulator: the session network blocks www.gstatic.com, where the site loads the SDK. Email/Password is always enabled in the Auth emulator, so the self-check's Email/Password row fails there by design.

@@ -2,11 +2,10 @@
 
 A small live web platform for running a timed crisis simulation in class.
 
-- **Students** open one link, pick their team and role, and watch messages and social posts arrive in real time. They can send responses back to the facilitators.
+- **Students** open their team's link (or the general link, where they also pick a team), pick their role, and watch messages and social posts arrive in real time. The feed is read-only: students can't message the facilitators through it.
 - **Facilitators** use a console to:
   - release scripted messages on schedule
   - interject new messages to any team or role
-  - read responses as they come in
 
 It is a static site (`site/`) on Firebase Firestore. Students need no account.
 

@@ -324,7 +324,8 @@ function build() {
       h(
         "nav",
         { class: "ctabs", role: "tablist" },
-        ["timeline", "compose", "responses", "preview", "setup"].map((t) =>
+        // Students can no longer send responses (removed after the test run), so there's no Responses tab.
+        ["timeline", "compose", "preview", "setup"].map((t) =>
           h("button", { type: "button", role: "tab", class: "ctab", "data-tab": t, onclick: () => setTab(t) }, { timeline: "Timeline", compose: "Compose / interject", responses: "Responses", preview: "View as student", setup: "Setup" }[t], h("span", { class: "tab__badge", id: "cbadge-" + t })),
         ),
       ),
@@ -340,8 +341,6 @@ function renderAll() {
   renderBar();
   renderNext();
   document.querySelectorAll(".ctab").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === S.tab)));
-  const open = S.responses.filter((r) => !r.handled).length;
-  $("cbadge-responses").textContent = open ? String(open) : "";
   const main = $("c-main");
   if (main.dataset.tab !== S.tab) {
     clear(main);
@@ -1149,8 +1148,11 @@ function renderSetup() {
 
   add(clear(main), 
     h("div", { class: "setup" },
-      card("Student link", h("p", null, "Share this one link with every student (bCourses or the class chat). They pick their own team and role."),
-        h("div", { class: "copy-row" }, h("input", { class: "input", readonly: true, value: studentUrl, id: "s-link" }), h("button", { type: "button", class: "btn", onclick: () => copy(studentUrl) }, "Copy"))),
+      card("Team links", h("p", null, "Send each team its own link. Students on a team link only pick their role; their team is set for them."),
+        h("div", { id: "s-team-links" }),
+        h("button", { type: "button", class: "btn", id: "s-copy-all", onclick: copyAllTeamLinks }, "Copy all team links"),
+        h("p", { class: "field__hint" }, "General link (students pick their own team):"),
+        h("div", { class: "copy-row" }, h("input", { class: "input", readonly: true, value: studentUrl, id: "s-link" }), h("button", { type: "button", class: "btn", onclick: (e) => copy(studentUrl, e.target.previousSibling) }, "Copy"))),
       card("Teams", h("div", { class: "form-row" }, h("label", { class: "field" }, h("span", { class: "field__label" }, "Number of teams"), nTeams)), teamNames,
         h("button", { type: "button", class: "btn btn--primary", id: "s-save-teams", onclick: saveTeams }, "Save teams"),
         h("p", { class: "field__hint" }, "Renaming is safe at any time. Removing a team while students are in it sends them back to the join screen.")),
@@ -1170,7 +1172,32 @@ function renderSetup() {
   renderSetupLive();
 }
 
+function teamLink(t) {
+  return new URL(carryParams(`index.html?team=${encodeURIComponent(t.id)}`), location.href).href;
+}
+
+function renderTeamLinks() {
+  const el = $("s-team-links");
+  if (!el) return;
+  const t = teams();
+  if (!t.length) return add(clear(el), h("p", { class: "empty" }, "Save teams below to get their links."));
+  add(clear(el),
+    t.map((tm) => {
+      const url = teamLink(tm);
+      const input = h("input", { class: "input", readonly: true, value: url, "data-team-link": String(tm.id) });
+      return h("div", { class: "copy-row team-link" }, h("span", { class: "team-link__name" }, tm.name || "Team " + tm.id), input, h("button", { type: "button", class: "btn", onclick: () => copy(url, input) }, "Copy"));
+    }),
+  );
+}
+
+function copyAllTeamLinks() {
+  const t = teams();
+  if (!t.length) return toast("No teams yet.");
+  copy(t.map((tm) => `${tm.name || "Team " + tm.id}: ${teamLink(tm)}`).join("\n"));
+}
+
 function renderSetupLive() {
+  renderTeamLinks();
   const info = $("s-script-info");
   if (!info) return;
   const all = Object.values(items());
@@ -1186,14 +1213,15 @@ function card(title, ...children) {
   return h("section", { class: "card" }, h("h3", null, title), ...children);
 }
 
-async function copy(text) {
+async function copy(text, input) {
   try {
     await navigator.clipboard.writeText(text);
     toast("Copied.");
   } catch {
-    const i = $("s-link");
-    i.select();
-    toast("Press Ctrl/⌘+C to copy.");
+    if (input && input.select) {
+      input.select();
+      toast("Press Ctrl/⌘+C to copy.");
+    } else toast("Couldn't copy. Copy the links one at a time instead.", { tone: "error" });
   }
 }
 

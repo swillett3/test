@@ -446,7 +446,7 @@ function buildRespond() {
     "form",
     { class: "respond", id: "respond-form", onsubmit: onSend },
     h("div", { class: "respond__head" }, h("h2", null, "Send a response"), h("button", { type: "button", class: "btn btn--ghost btn--sm desktop-only", onclick: () => setRespondOpen(false), "aria-label": "Close" }, "✕")),
-    h("p", { class: "respond__intro" }, "Use this for anything you'd send outside the leadership team: a public post, a statement, a reply. Deliverables (board deck, video, press statement) still go to bCourses."),
+    h("p", { class: "respond__intro" }, "Use this for anything you'd send outside the leadership team: a public post or a reply to a message. Deliverables (board deck, video, press statement) still go to bCourses."),
     h("label", { class: "field" }, h("span", { class: "field__label" }, "What is this?"), kind),
     h("label", { class: "field" }, h("span", { class: "field__label" }, "In reply to"), replyTo),
     h("label", { class: "field" }, h("span", { class: "field__label" }, "Your response"), text, counter),

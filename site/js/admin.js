@@ -324,8 +324,7 @@ function build() {
       h(
         "nav",
         { class: "ctabs", role: "tablist" },
-        // Students can no longer send responses (removed after the test run), so there's no Responses tab.
-        ["timeline", "compose", "preview", "setup"].map((t) =>
+        ["timeline", "compose", "responses", "preview", "setup"].map((t) =>
           h("button", { type: "button", role: "tab", class: "ctab", "data-tab": t, onclick: () => setTab(t) }, { timeline: "Timeline", compose: "Compose / interject", responses: "Responses", preview: "View as student", setup: "Setup" }[t], h("span", { class: "tab__badge", id: "cbadge-" + t })),
         ),
       ),
@@ -341,6 +340,8 @@ function renderAll() {
   renderBar();
   renderNext();
   document.querySelectorAll(".ctab").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === S.tab)));
+  const open = S.responses.filter((r) => !r.handled).length;
+  $("cbadge-responses").textContent = open ? String(open) : "";
   const main = $("c-main");
   if (main.dataset.tab !== S.tab) {
     clear(main);

@@ -148,8 +148,10 @@ If a row fails, it says what to change. Usually that's a sign-in method left on 
 4. Have them:
    - read messages
    - open a Drive attachment
+   - send a response
 5. You:
    - send a targeted interjection from **Compose / interject**
+   - reply to a response
    - release #13b to one team
    - retract something
 6. Have Amy open the console at the same time from her own laptop, so you both know it works with two facilitators.

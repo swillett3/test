@@ -1,6 +1,6 @@
 import { loadBackend, resilientWatch } from "./store.js";
 import { h, add, clear, toast, chime, confirmDialog, qs } from "./ui.js";
-import { isForViewer, feedList, fmtClock, DEFAULT_ROLES } from "./model.js";
+import { isForViewer, feedList, fmtClock, buildResponse, RESPONSE_KINDS, DEFAULT_ROLES, LIMITS } from "./model.js";
 import { inboxRow, messageView, socialPost, kindLabel } from "./feedview.js";
 
 const ID_KEY = "csim-identity";
@@ -9,6 +9,8 @@ const LOCK_KEY = "csim-team-lock";
 
 const S = {
   backend: null,
+  user: null,
+  authError: null,
   config: null,
   feed: {},
   feedLoaded: false,
@@ -20,9 +22,10 @@ const S = {
   read: new Set(),
   known: null, // keys seen so far; null until the first feed snapshot after joining
   freshSocial: new Set(),
+  sent: [],
   sound: localStorage.getItem(SOUND_KEY) !== "off",
   built: false,
-  join: { team: null, role: null }, // picks on the join screen, kept across re-renders
+  join: { team: null, role: null, name: "" }, // picks on the join screen, kept across re-renders
   lockedTeam: null, // set when the student arrived on a team link (index.html?team=3): they only pick a role
   joinSig: null, // what the join screen was last drawn from; null when it isn't showing
 };
@@ -61,8 +64,15 @@ async function boot() {
   if (!S.backend) return bootMessage("This site hasn't been connected to its database yet. If you're the facilitator, see the setup guide.");
   if (S.backend.kind === "mock") document.body.classList.add("is-mock");
 
-  // Anonymous sign-in stays: the database rules only let signed-in visitors read the feed.
-  S.backend.signInStudent().catch((e) => console.error(e));
+  S.backend.onAuth((u) => {
+    S.user = u;
+    if (S.built) renderRespondStatus();
+  });
+  S.backend.signInStudent().catch((e) => {
+    console.error(e);
+    S.authError = e;
+    if (S.built) renderRespondStatus();
+  });
 
   // Both listeners re-subscribe by themselves after an error (a Firestore listener stops for good otherwise).
   const lost = (what) => (e) => {
@@ -136,9 +146,10 @@ function resolveIdentity() {
 }
 
 function setIdentity(id) {
-  S.identity = { team: String(id.team), role: id.role };
+  S.identity = { team: String(id.team), role: id.role, name: id.name || "" };
   saveLocal(ID_KEY, S.identity);
   S.read = new Set(loadLocal("csim-read:" + idKey(), []));
+  S.sent = loadLocal("csim-sent:" + idKey(), []);
   S.known = null;
   S.selected = null;
   S.built = false;
@@ -214,6 +225,7 @@ function render() {
   renderInbox();
   renderReader();
   renderSocial();
+  renderRespondOptions();
   renderTabs();
 }
 
@@ -229,8 +241,9 @@ function renderJoin() {
   const J = S.join;
   if (lock) J.team = lock;
   if (J.team && !t.some((tm) => String(tm.id) === J.team)) J.team = null;
-  if (J.role && !roles().some((r) => r.code === J.role)) J.role = null;
   const lockedInfo = lock && teamInfo(lock);
+  if (J.role && !roles().some((r) => r.code === J.role)) J.role = null;
+  const nameInput = h("input", { type: "text", id: "join-name", maxlength: "80", placeholder: "Optional — helps facilitators know who replied", autocomplete: "name", value: J.name, oninput: (e) => (J.name = e.target.value) });
   const go = h("button", { type: "submit", class: "btn btn--primary btn--lg", id: "join-go", disabled: true }, "Enter the workspace");
   const update = () => {
     go.disabled = !(J.team && J.role);
@@ -252,8 +265,8 @@ function renderJoin() {
               onsubmit: (e) => {
                 e.preventDefault();
                 if (!J.team || !J.role) return;
-                setIdentity({ team: J.team, role: J.role });
-                S.join = { team: null, role: null };
+                setIdentity({ team: J.team, role: J.role, name: nameInput.value.trim() });
+                S.join = { team: null, role: null, name: J.name };
                 render();
               },
             },
@@ -269,7 +282,7 @@ function renderJoin() {
                     ),
                   ),
                 ],
-            h("h2", null, lockedInfo ? "Your role" : "2. Your role"),
+            h("h2", null, lockedInfo ? "1. Your role" : "2. Your role"),
             h(
               "div",
               { class: "choice-grid" },
@@ -283,6 +296,7 @@ function renderJoin() {
                 ),
               ),
             ),
+            h("label", { class: "field", for: "join-name" }, h("span", { class: "field__label" }, lockedInfo ? "2. Your name" : "3. Your name"), nameInput),
             go,
           ),
     ),
@@ -308,6 +322,7 @@ function buildWorkspace() {
           h("span", { class: "status", id: "status" }),
           h("span", { class: "clock", id: "clock" }),
           h("button", { type: "button", class: "btn btn--ghost btn--sm", id: "sound-btn", onclick: toggleSound, title: "Sound for new messages" }),
+          h("button", { type: "button", class: "btn btn--primary btn--sm desktop-only", id: "respond-open", onclick: () => setRespondOpen(true) }, "Send a response"),
           h("button", { type: "button", class: "btn btn--ghost btn--sm", id: "switch", onclick: switchRole }, "Switch role"),
         ),
       ),
@@ -316,6 +331,7 @@ function buildWorkspace() {
         { class: "tabs", id: "tabs" },
         tabBtn("inbox", "Inbox"),
         tabBtn("social", "Social"),
+        tabBtn("respond", "Respond"),
       ),
       h(
         "main",
@@ -323,6 +339,7 @@ function buildWorkspace() {
         h("section", { class: "pane pane--inbox", "aria-label": "Inbox" }, h("div", { class: "pane__head" }, h("h2", null, "Inbox"), h("span", { class: "count", id: "inbox-count" })), h("div", { class: "inbox-list", id: "inbox-list" })),
         h("section", { class: "pane pane--reader", id: "reader", "aria-label": "Message" }),
         h("section", { class: "pane pane--social", "aria-label": "Social media" }, h("div", { class: "pane__head" }, h("h2", null, "Social & news feed"), h("span", { class: "live-dot" }, "live")), h("div", { class: "social-list", id: "social-list" })),
+        h("section", { class: "pane pane--respond", id: "respond", "aria-label": "Send a response" }, buildRespond()),
       ),
     ),
   );
@@ -414,6 +431,129 @@ function renderSocial() {
   if (!social.length) return list.appendChild(emptyState("social"));
   social.forEach((f) => list.appendChild(socialPost(f, { fresh: S.freshSocial.has(f.key) })));
   if (S.tab === "social" || window.matchMedia("(min-width: 1100px)").matches) setTimeout(() => S.freshSocial.clear(), 4000);
+}
+
+// ---------- respond ----------
+
+function buildRespond() {
+  const kind = h("select", { id: "r-kind", class: "input" }, RESPONSE_KINDS.map((k) => h("option", { value: k.code }, k.label)));
+  const replyTo = h("select", { id: "r-reply", class: "input" });
+  const text = h("textarea", { id: "r-text", class: "input", rows: "7", maxlength: String(LIMITS.text), placeholder: "Write what you would post, say or decide." });
+  const counter = h("span", { class: "field__hint", id: "r-count" }, `0 / ${LIMITS.text}`);
+  text.addEventListener("input", () => (counter.textContent = `${text.value.length} / ${LIMITS.text}`));
+  const send = h("button", { type: "submit", class: "btn btn--primary", id: "r-send" }, "Send response");
+  const form = h(
+    "form",
+    { class: "respond", id: "respond-form", onsubmit: onSend },
+    h("div", { class: "respond__head" }, h("h2", null, "Send a response"), h("button", { type: "button", class: "btn btn--ghost btn--sm desktop-only", onclick: () => setRespondOpen(false), "aria-label": "Close" }, "✕")),
+    h("p", { class: "respond__intro" }, "Use this for anything you'd send outside the leadership team: a public post, a statement, a reply. Deliverables (board deck, video, press statement) still go to bCourses."),
+    h("label", { class: "field" }, h("span", { class: "field__label" }, "What is this?"), kind),
+    h("label", { class: "field" }, h("span", { class: "field__label" }, "In reply to"), replyTo),
+    h("label", { class: "field" }, h("span", { class: "field__label" }, "Your response"), text, counter),
+    h("div", { class: "respond__status", id: "r-status", role: "status" }),
+    send,
+    h("h3", { class: "respond__sent-title" }, "Sent from this device"),
+    h("ul", { class: "sent-list", id: "sent-list" }),
+  );
+  return form;
+}
+
+function renderRespondOptions() {
+  const sel = $("r-reply");
+  if (!sel) return;
+  const cur = sel.value;
+  const { inbox, social } = myItems();
+  clear(sel).appendChild(h("option", { value: "" }, "Nothing specific"));
+  const og1 = h("optgroup", { label: "Inbox" }, inbox.slice(0, 40).map((f) => h("option", { value: f.key }, `${fmtClock(f.releasedAt)} · ${f.subject || f.from}`.slice(0, 90))));
+  const og2 = h("optgroup", { label: "Social posts" }, social.slice(0, 40).map((f) => h("option", { value: f.key }, `${f.from}: ${String(f.body).slice(0, 60)}`)));
+  if (inbox.length) sel.appendChild(og1);
+  if (social.length) sel.appendChild(og2);
+  if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
+  renderSent();
+  renderRespondStatus();
+}
+
+function renderSent() {
+  const ul = $("sent-list");
+  if (!ul) return;
+  clear(ul);
+  if (!S.sent.length) return ul.appendChild(h("li", { class: "empty" }, "Nothing sent yet."));
+  S.sent.slice(0, 20).forEach((s) =>
+    ul.appendChild(h("li", { class: "sent" }, h("span", { class: "sent__time" }, fmtClock(s.at) + " · " + ((RESPONSE_KINDS.find((k) => k.code === s.kind) || {}).label || s.kind)), h("span", { class: "sent__text" }, s.text))),
+  );
+}
+
+function renderRespondStatus() {
+  const st = $("r-status");
+  const btn = $("r-send");
+  if (!st || !btn) return;
+  if (S.authError && !S.user) {
+    st.textContent = "Can't send responses right now (sign-in failed). Tell a facilitator; you can still read messages.";
+    st.className = "respond__status is-error";
+    btn.disabled = true;
+  } else if (!S.user) {
+    st.textContent = "Connecting…";
+    st.className = "respond__status";
+    btn.disabled = true;
+  } else if (!st.dataset.sticky) {
+    st.textContent = "";
+    st.className = "respond__status";
+    btn.disabled = false;
+  } else btn.disabled = false;
+}
+
+async function onSend(e) {
+  e.preventDefault();
+  const st = $("r-status");
+  const btn = $("r-send");
+  const text = $("r-text");
+  let r;
+  try {
+    r = buildResponse({
+      team: S.identity.team,
+      role: S.identity.role,
+      kind: $("r-kind").value,
+      text: text.value,
+      replyTo: $("r-reply").value,
+      name: S.identity.name,
+      uid: S.user && S.user.uid,
+    });
+  } catch (err) {
+    st.textContent = err.message;
+    st.className = "respond__status is-error";
+    return;
+  }
+  btn.disabled = true;
+  st.textContent = "Sending…";
+  st.className = "respond__status";
+  try {
+    await S.backend.submitResponse(r);
+    S.sent.unshift({ at: Date.now(), kind: r.kind, text: r.text });
+    S.sent = S.sent.slice(0, 50);
+    saveLocal("csim-sent:" + idKey(), S.sent);
+    text.value = "";
+    $("r-count").textContent = `0 / ${LIMITS.text}`;
+    st.textContent = `Sent at ${fmtClock(Date.now())}.`;
+    st.className = "respond__status is-ok";
+    st.dataset.sticky = "1";
+    setTimeout(() => {
+      delete st.dataset.sticky;
+    }, 6000);
+    renderSent();
+  } catch (err) {
+    console.error(err);
+    st.textContent = "That didn't send. Check your connection and try again — your text is still here.";
+    st.className = "respond__status is-error";
+  } finally {
+    btn.disabled = !S.user;
+  }
+}
+
+function setRespondOpen(open) {
+  const ws = $("ws");
+  if (!ws) return;
+  ws.dataset.respond = open ? "open" : "closed";
+  if (open) setTimeout(() => $("r-text") && $("r-text").focus(), 50);
 }
 
 function toggleSound() {

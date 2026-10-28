@@ -24,7 +24,7 @@ export const RESPONSE_KINDS = [
   { code: "social-reply", label: "Public / social media response" },
   { code: "statement", label: "Statement or decision" },
   { code: "reply", label: "Reply to a message" },
-  { code: "question", label: "Question for the facilitators" },
+  // "Question for the facilitators" was removed 10/27 after the test run: responses are in-character only.
 ];
 
 export const LIMITS = { text: 4000, name: 80, replyTo: 80, team: 20, role: 10, kind: 30 };

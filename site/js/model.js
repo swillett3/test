@@ -22,9 +22,8 @@ export const DEFAULT_CONFIG = {
 
 export const RESPONSE_KINDS = [
   { code: "social-reply", label: "Public / social media response" },
-  { code: "statement", label: "Statement or decision" },
   { code: "reply", label: "Reply to a message" },
-  // "Question for the facilitators" was removed 10/27 after the test run: responses are in-character only.
+  // "Question for the facilitators" and "Statement or decision" were removed 10/27 after the test run (Sam's call).
 ];
 
 export const LIMITS = { text: 4000, name: 80, replyTo: 80, team: 20, role: 10, kind: 30 };
@@ -273,7 +272,7 @@ export function buildResponse({ team, role, kind, text, replyTo, name, uid }) {
   const r = {
     team: str(team, LIMITS.team),
     role: str(role, LIMITS.role),
-    kind: RESPONSE_KINDS.some((k) => k.code === kind) ? kind : "statement",
+    kind: RESPONSE_KINDS.some((k) => k.code === kind) ? kind : "reply",
     text: t,
     uid: String(uid || ""),
   };

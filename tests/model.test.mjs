@@ -111,7 +111,7 @@ test("responses are validated", () => {
   assert.throws(() => M.buildResponse({ text: "   " }), /Write something/);
   assert.throws(() => M.buildResponse({ text: "x".repeat(4001) }), /under 4000/);
   const r = M.buildResponse({ team: "2", role: "CCO", kind: "bogus", text: " hi ", replyTo: "", name: "", uid: "u1" });
-  assert.deepEqual(r, { team: "2", role: "CCO", kind: "statement", text: "hi", uid: "u1" });
+  assert.deepEqual(r, { team: "2", role: "CCO", kind: "reply", text: "hi", uid: "u1" });
 });
 
 test("unsafe links are dropped", () => {

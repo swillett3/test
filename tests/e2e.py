@@ -211,8 +211,8 @@ try:
         # ---------- student response reaches the console ----------
         s3.locator("#respond-open").click()
         kinds = s3.locator("#r-kind option").all_inner_texts()
-        check("response types are in-character only (no question for the facilitators)",
-              not any("facilitator" in k.lower() for k in kinds) and len(kinds) == 3, str(kinds))
+        check("response types are only a public/social response or a reply",
+              kinds == ["Public / social media response", "Reply to a message"], str(kinds))
         check("send button doesn't say it goes to the facilitators", s3.locator("#r-send").inner_text() == "Send response", s3.locator("#r-send").inner_text())
         s3.locator("#r-kind").select_option("social-reply")
         s3.locator("#r-text").fill("We are deeply sorry. <b>Full stop.</b> Statement to follow.")

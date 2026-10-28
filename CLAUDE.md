@@ -22,7 +22,7 @@ Live web platform for the 4-hour crisis simulation in **Responsible Management i
 - **Facilitators can interject live,** targeted to any set of roles × teams.
 
 ## Architecture (static site, no build step)
-- **`site/index.html` + `js/student.js`:** the student feed. Students pick a team and role, then see an inbox, a social/news feed, and a "send a response" panel. Responses are in-character only: the "Question for the facilitators" type was removed 10/27 after the test run (Sam's call), and the button says "Send response". A team link (`index.html?team=N`) locks the team so students only pick a role; the lock is kept in localStorage (`csim-team-lock`) across reloads and "Switch role", and cleared by opening the general link. A link to a missing team falls back to the picker.
+- **`site/index.html` + `js/student.js`:** the student feed. Students pick a team and role, then see an inbox, a social/news feed, and a "send a response" panel. Response types are only "Public / social media response" and "Reply to a message": "Question for the facilitators" and "Statement or decision" were removed 10/27 after the test run (Sam's call), and the button says "Send response". A team link (`index.html?team=N`) locks the team so students only pick a role; the lock is kept in localStorage (`csim-team-lock`) across reloads and "Switch role", and cleared by opening the general link. A link to a missing team falls back to the picker.
 - **`site/admin.html` + `js/admin.js`:** the facilitator console. Its tabs are:
   - Timeline, with Release, targeted release, edit, skip and retract.
   - Compose/interject.
